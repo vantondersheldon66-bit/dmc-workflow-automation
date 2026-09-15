@@ -1,0 +1,21 @@
+# ==============================================================================
+# DMC Operations Platform Dependencies
+# ==============================================================================
+# NOTE: The core server (server.py, db.py, comm_gateway.py, flight_tracker.py,
+# payment_checkout.py, fx_vat_engine.py) runs on pure Python 3.10+ standard library.
+#
+# The packages listed below are optional for advanced enterprise production setups:
+# ==============================================================================
+
+# Optional: High-performance ASGI production server (if migrating from SimpleHTTP)
+# uvicorn>=0.30.0
+# fastapi>=0.111.0
+
+# Optional: Official Stripe SDK (if replacing direct REST calls)
+# stripe>=10.0.0
+
+# Optional: Requests library
+# requests>=2.32.0
+
+# Optional: Testing framework
+pytest>=8.0.0

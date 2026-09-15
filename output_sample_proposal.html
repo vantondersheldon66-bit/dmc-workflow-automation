@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bespoke Itinerary Proposal - INQ-2026-001</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --primary: #1A365D;
+      --gold: #C5A059;
+      --bg: #F8FAFC;
+      --card: #FFFFFF;
+      --text: #2D3748;
+      --muted: #718096;
+      --border: #E2E8F0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1A365D 0%, #0F172A 100%);
+      color: #FFFFFF;
+      padding: 60px 48px;
+      position: relative;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(197, 160, 89, 0.2);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      color: #CBD5E1;
+      font-size: 1.05rem;
+      font-weight: 300;
+    }
+
+    .meta-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: #F1F5F9;
+      border-bottom: 1px solid var(--border);
+      padding: 20px 48px;
+      gap: 16px;
+    }
+
+    .meta-item .label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .meta-item .value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-top: 2px;
+    }
+
+    .content {
+      padding: 48px;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-bottom: 24px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+
+    /* Day cards */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .day-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      transition: box-shadow 0.2s;
+    }
+
+    .day-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .day-tag {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .day-date {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .day-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .day-description {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .service-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      background: #E2E8F0;
+      color: #334155;
+      padding: 2px 10px;
+      border-radius: 12px;
+      margin-top: 12px;
+    }
+
+    /* Pricing Section */
+    .pricing-box {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 32px;
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pricing-box .quote-details h3 {
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .pricing-box .quote-details p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .pricing-box .quote-price {
+      text-align: right;
+    }
+
+    .price-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .price-currency {
+      font-size: 1.2rem;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .price-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* Terms & Footer */
+    .inclusions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .inclusion-box h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .inclusion-box ul {
+      list-style-type: none;
+    }
+
+    .inclusion-box ul li {
+      font-size: 0.85rem;
+      color: #4B5563;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 48px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: #FAFAFA;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Hero Banner -->
+    <div class="hero">
+      <div class="badge">Bespoke Travel Proposal</div>
+      <h1>Amalfi Coast & Capri</h1>
+      <p>Exclusively curated for Sarah Jenkins (Signature Travel Network)</p>
+    </div>
+
+    <!-- Metadata Bar -->
+    <div class="meta-bar">
+      <div class="meta-item">
+        <div class="label">Proposal Ref</div>
+        <div class="value">INQ-2026-001</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Dates</div>
+        <div class="value">2026-09-20 - 2026-09-24</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Guests</div>
+        <div class="value">2 Adults </div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Service Tier</div>
+        <div class="value">Ultra-VIP</div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+      <h2 class="section-title">Day-by-Day Program</h2>
+
+      <div class="timeline">
+        <!-- Loop Itinerary Items -->
+        
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-tag">Day 1</span>
+      <span class="day-date">2026-09-20</span>
+    </div>
+    <h3 class="day-title">Naples Airport (NAP) to Sorrento Hotel (Mercedes V-Class)</h3>
+    <p class="day-description">Exclusive private service for 2 guests. Supplier reference: SUP-TRN-001.</p>
+    <span class="service-badge">Arrival Transfer</span>
+  </div>
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-tag">Day 2</span>
+      <span class="day-date">2026-09-21</span>
+    </div>
+    <h3 class="day-title">Private Guided Tour of Pompeii Ruins (3 Hours VIP)</h3>
+    <p class="day-description">Exclusive private service for 2 guests. Supplier reference: SUP-GDE-001.</p>
+    <span class="service-badge">Private Archaeology Guide</span>
+  </div>
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-tag">Day 3</span>
+      <span class="day-date">2026-09-22</span>
+    </div>
+    <h3 class="day-title">Full Day Private Riva Yacht Charter around Capri with Prosecco</h3>
+    <p class="day-description">Exclusive private service for 2 guests. Supplier reference: SUP-ACT-001.</p>
+    <span class="service-badge">Private Yacht Charter</span>
+  </div>
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-tag">Day 4</span>
+      <span class="day-date">2026-09-24</span>
+    </div>
+    <h3 class="day-title">Sorrento to Positano/Ravello Transfer</h3>
+    <p class="day-description">Exclusive private service for 2 guests. Supplier reference: SUP-TRN-001.</p>
+    <span class="service-badge">Departure Transfer</span>
+  </div>
+      </div>
+
+      <!-- Pricing Summary -->
+      <div class="pricing-box">
+        <div class="quote-details">
+          <h3>Total Investment</h3>
+          <p>Includes all private transfers, accommodations, licensed guides, and boat charters as detailed above.</p>
+        </div>
+        <div class="quote-price">
+          <div>
+            <span class="price-currency">EUR</span>
+            <span class="price-number">7 654</span>
+          </div>
+          <div class="price-note">All taxes, private driver gratuities & VAT included</div>
+        </div>
+      </div>
+
+      <!-- Inclusions & Exclusions -->
+      <div class="inclusions-grid">
+        <div class="inclusion-box">
+          <h4>Included in Proposal</h4>
+          <ul>
+            <li>✓ Private luxury Mercedes transfers with English-speaking chauffeur</li>
+            <li>✓ Private certified English-speaking local guides at all monuments</li>
+            <li>✓ VIP skip-the-line entrance tickets</li>
+            <li>✓ 24/7 dedicated on-the-ground DMC concierge support</li>
+          </ul>
+        </div>
+        <div class="inclusion-box">
+          <h4>Not Included</h4>
+          <ul>
+            <li>✕ International & domestic flights</li>
+            <li>✕ Meals and beverages not explicitly specified in the daily program</li>
+            <li>✕ City tourist taxes (payable directly to hotels at checkout)</li>
+            <li>✕ Travel and medical insurance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <strong>Your Destination Management Partner</strong> | Inquiries: ops@dmcluxury.mock | 24/7 Ground Operations: +39 081 000 999
+    </div>
+  </div>
+</body>
+</html>

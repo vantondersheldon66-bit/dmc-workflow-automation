@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment and local configurations
+.env
+.env.local
+*.local
+
+# Database files (keep schema & seeds, ignore live runtime db)
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node / JS artifacts (if any)
+node_modules/
+npm-debug.log*
+
+# Test & runtime logs
+*.log
+logs/
+.system_generated/
+
+# Backup directories
+backups/

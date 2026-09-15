@@ -1,0 +1,6 @@
+supplier_id,name,category,location,contact_person,contact_email,contact_phone,whatsapp_number,payment_terms,rating
+SUP-HTL-001,Hotel Caruso Belmond,Accommodation,Ravello Amalfi,Giulia Rossi,reservations@carusobelmond.mock,+39089123456,+39333111222,Net 30 Days,5
+SUP-HTL-002,Grand Hotel Excelsior Vittoria,Accommodation,Sorrento,Marco Esposito,booking@excelsiorvittoria.mock,+39081878123,+39333222333,Net 30 Days,5
+SUP-TRN-001,Amalfi Luxury Chauffeurs,Transport,Naples & Amalfi,Antonio De Luca,dispatch@amalfichauffeur.mock,+39081555888,+39333444555,Net 14 Days,5
+SUP-GDE-001,Capri & Pompeii Licensed Guides,Licensed Guide,Pompeii,Elena Ferrara,info@pompeiiguides.mock,+39081850123,+39333666777,On Arrival,5
+SUP-ACT-001,Capri Blue Private Boat Charters,Boat Charter,Capri Marina Grande,Capitan Roberto,booking@capriboats.mock,+39081837999,+39333888999,Prepayment Required,5

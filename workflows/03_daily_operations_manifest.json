@@ -1,0 +1,115 @@
+{
+  "name": "DMC - 03: Daily Operations Manifest & Driver/Guide Dispatch",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 18 * * *"
+            }
+          ]
+        }
+      },
+      "name": "Schedule: Daily at 18:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        300
+      ],
+      "id": "schedule-cron-01"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Calculate tomorrow's date string (YYYY-MM-DD)\nconst tomorrow = new Date();\ntomorrow.setDate(tomorrow.getDate() + 1);\nconst tomorrowStr = tomorrow.toISOString().split('T')[0];\n\n// Mock tomorrow's confirmed operations (In production, fetched from Airtable/PostgreSQL)\nconst tomorrowOperations = [\n  {\n    service_id: \"ITM-2026-001-D1\",\n    service_type: \"Airport Transfer\",\n    service_time: \"14:30\",\n    client_name: \"Sarah Jenkins\",\n    pax_count: 2,\n    flight_number: \"AZ 1284 (FCO -> NAP)\",\n    pickup_point: \"Naples International Airport (NAP) - Arrivals Gate\",\n    dropoff_point: \"Grand Hotel Excelsior Vittoria, Sorrento\",\n    assigned_driver: \"Antonio De Luca\",\n    driver_phone: \"+39333444555\",\n    vehicle_plate: \"Mercedes V-Class (FX 892 TR)\",\n    special_instructions: \"VIP 25th anniversary guests. Provide chilled water and wet towels.\"\n  },\n  {\n    service_id: \"ITM-2026-002-D2\",\n    service_type: \"Private Guided Tour\",\n    service_time: \"09:30\",\n    client_name: \"David Schmidt\",\n    pax_count: 4,\n    flight_number: \"N/A\",\n    pickup_point: \"Hotel Lobby, Sorrento\",\n    dropoff_point: \"Pompeii Archaeological Park\",\n    assigned_driver: \"Marco Bianchi\",\n    driver_phone: \"+39333555666\",\n    vehicle_plate: \"Mercedes Sprinter (GG 441 AB)\",\n    assigned_guide: \"Elena Ferrara\",\n    guide_phone: \"+39333666777\",\n    special_instructions: \"German-speaking guide Elena Ferrara requested.\"\n  }\n];\n\n// Group into individual driver manifests\nconst driverManifests = {};\ntomorrowOperations.forEach(op => {\n  if (!driverManifests[op.driver_phone]) {\n    driverManifests[op.driver_phone] = {\n      driver_name: op.assigned_driver,\n      driver_phone: op.driver_phone,\n      vehicle_plate: op.vehicle_plate,\n      date: tomorrowStr,\n      assignments: []\n    };\n  }\n  driverManifests[op.driver_phone].assignments.push(op);\n});\n\nconst output = Object.values(driverManifests).map(m => {\n  let msg = `📋 *DAILY DISPATCH MANIFEST - ${m.date}*\\n`;\n  msg += `Driver: *${m.driver_name}* | Vehicle: ${m.vehicle_plate}\\n`;\n  msg += `━━━━━━━━━━━━━━━━━━━━\\n`;\n\n  m.assignments.forEach((a, i) => {\n    msg += `*Stop #${i + 1}: ${a.service_time} - ${a.service_type}*\\n`;\n    msg += `• Lead Guest: ${a.client_name} (${a.pax_count} Pax)\\n`;\n    if (a.flight_number !== 'N/A') msg += `• Flight: ${a.flight_number}\\n`;\n    msg += `• From: ${a.pickup_point}\\n`;\n    msg += `• To: ${a.dropoff_point}\\n`;\n    if (a.special_instructions) msg += `• Notes: _${a.special_instructions}_\\n`;\n    msg += `\\n`;\n  });\n\n  msg += `📞 24/7 Operations Desk: +39 081 555 9999\\nPlease reply *ACK* to confirm receipt.`;\n\n  return {\n    json: {\n      driver_name: m.driver_name,\n      driver_phone: m.driver_phone,\n      date: m.date,\n      manifest_text: msg\n    }\n  };\n});\n\nreturn output;"
+      },
+      "name": "Code: Compile Driver Manifests",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ],
+      "id": "manifest-compiler-02"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.twilio.com/2010-04-01/Accounts/YOUR_ACCOUNT_SID/Messages.json",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "From",
+              "value": "whatsapp:+14155238886"
+            },
+            {
+              "name": "To",
+              "value": "=whatsapp:{{ $json.driver_phone }}"
+            },
+            {
+              "name": "Body",
+              "value": "={{ $json.manifest_text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "WhatsApp / SMS: Dispatch to Driver",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        300
+      ],
+      "id": "dispatch-whatsapp-03"
+    },
+    {
+      "parameters": {
+        "channel": "#dmc-field-operations",
+        "text": "=✅ *Daily Operations Run-Sheets Dispatched for {{ $json.date }}*\n• Driver: *{{ $json.driver_name }}* ({{ $json.driver_phone }})\n• Status: Sent via WhatsApp\n\n```\n{{ $json.manifest_text }}\n```",
+        "options": {}
+      },
+      "name": "Slack: Operations Summary",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        960,
+        300
+      ],
+      "id": "slack-summary-04"
+    }
+  ],
+  "connections": {
+    "Schedule: Daily at 18:00": {
+      "main": [
+        [
+          {
+            "node": "Code: Compile Driver Manifests",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Compile Driver Manifests": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp / SMS: Dispatch to Driver",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slack: Operations Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

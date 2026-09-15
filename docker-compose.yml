@@ -1,0 +1,48 @@
+services:
+  # DMC Operations Command Dashboard & REST API
+  dmc-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dmc-operations-platform
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - dmc_data:/app
+    environment:
+      - PORT=8080
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID:-}
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN:-}
+      - TWILIO_WHATSAPP_FROM=${TWILIO_WHATSAPP_FROM:-whatsapp:+14155238886}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY:-}
+      - AVIATIONSTACK_API_KEY=${AVIATIONSTACK_API_KEY:-}
+    networks:
+      - dmc-network
+
+  # Self-Hosted n8n Automation Engine
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    container_name: dmc-n8n-workflows
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - WEBHOOK_URL=http://localhost:5678/
+      - GENERIC_TIMEZONE=Europe/Rome
+    volumes:
+      - n8n_data:/home/node/.n8n
+    networks:
+      - dmc-network
+
+volumes:
+  dmc_data:
+  n8n_data:
+
+networks:
+  dmc-network:
+    driver: bridge

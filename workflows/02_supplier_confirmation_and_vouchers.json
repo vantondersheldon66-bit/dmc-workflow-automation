@@ -1,0 +1,185 @@
+{
+  "name": "DMC - 02: Supplier 1-Click Confirmation & Voucher Dispatch",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "booking-won-trigger",
+        "options": {}
+      },
+      "name": "Webhook: Booking Won / Deposit Paid",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "id": "webhook-booking-won-01"
+    },
+    {
+      "parameters": {
+        "jsCode": "const booking = $input.first().json;\n\n// Sample items if not passed directly\nconst items = booking.itinerary_items || [\n  {\n    item_id: \"ITM-2026-001-D1\",\n    supplier_id: \"SUP-TRN-001\",\n    supplier_name: \"Amalfi Luxury Chauffeurs\",\n    supplier_whatsapp: \"+39333444555\",\n    supplier_email: \"dispatch@amalfichauffeur.mock\",\n    service_title: \"Private Mercedes V-Class Transfer: Naples Airport to Sorrento\",\n    service_date: booking.travel_start_date || \"2026-09-20\",\n    service_time: \"14:30\",\n    pax_count: booking.pax_adults || 2,\n    client_name: booking.client_name || \"Sarah Jenkins\"\n  },\n  {\n    item_id: \"ITM-2026-001-D2\",\n    supplier_id: \"SUP-GDE-001\",\n    supplier_name: \"Capri & Pompeii Licensed Guides\",\n    supplier_whatsapp: \"+39333666777\",\n    supplier_email: \"info@pompeiiguides.mock\",\n    service_title: \"Private VIP 3-Hour Guided Tour of Pompeii Ruins\",\n    service_date: \"2026-09-21\",\n    service_time: \"09:30\",\n    pax_count: booking.pax_adults || 2,\n    client_name: booking.client_name || \"Sarah Jenkins\"\n  }\n];\n\nconst webhookBaseUrl = \"https://your-n8n-instance.com/webhook/supplier-confirm\";\n\nconst dispatchList = items.map(item => {\n  const token = 'tok_' + Math.random().toString(36).substring(2, 15);\n  return {\n    json: {\n      ...item,\n      confirmation_token: token,\n      accept_url: `${webhookBaseUrl}?token=${token}&action=accept&item_id=${item.item_id}`,\n      decline_url: `${webhookBaseUrl}?token=${token}&action=decline&item_id=${item.item_id}`,\n      message_text: `*NEW DMC BOOKING REQUEST*\\n` +\n        `Service: ${item.service_title}\\n` +\n        `Date & Time: ${item.service_date} @ ${item.service_time}\\n` +\n        `Guests: ${item.pax_count} Pax (Lead: ${item.client_name})\\n\\n` +\n        `👉 *CONFIRM (1-Click):* ${webhookBaseUrl}?token=${token}&action=accept&item_id=${item.item_id}\\n` +\n        `❌ *DECLINE:* ${webhookBaseUrl}?token=${token}&action=decline&item_id=${item.item_id}`\n    }\n  };\n});\n\nreturn dispatchList;"
+      },
+      "name": "Code: Generate 1-Click Tokens & Links",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ],
+      "id": "generate-tokens-02"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.twilio.com/2010-04-01/Accounts/YOUR_ACCOUNT_SID/Messages.json",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "From",
+              "value": "whatsapp:+14155238886"
+            },
+            {
+              "name": "To",
+              "value": "=whatsapp:{{ $json.supplier_whatsapp }}"
+            },
+            {
+              "name": "Body",
+              "value": "={{ $json.message_text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "WhatsApp / Email: Send to Supplier",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        300
+      ],
+      "id": "send-supplier-ping-03"
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "supplier-confirm",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "name": "Webhook: Supplier Click Listener",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        540
+      ],
+      "id": "supplier-webhook-listener-04"
+    },
+    {
+      "parameters": {
+        "jsCode": "const query = $input.first().json.query;\nconst action = query.action || 'accept';\nconst itemId = query.item_id || 'UNKNOWN';\nconst token = query.token;\n\nconst isConfirmed = action === 'accept';\nconst voucherNum = isConfirmed ? 'VOUCH-' + Math.floor(100000 + Math.random() * 900000) : null;\n\nconst htmlResponse = isConfirmed\n  ? `<div style=\"font-family: sans-serif; text-align: center; padding: 50px;\">\n      <h1 style=\"color: #10B981;\">✓ Service Confirmed!</h1>\n      <p>Thank you. Your confirmation has been registered in the DMC Operations System.</p>\n      <p><strong>Voucher Ref:</strong> ${voucherNum}</p>\n     </div>`\n  : `<div style=\"font-family: sans-serif; text-align: center; padding: 50px;\">\n      <h1 style=\"color: #EF4444;\">✕ Service Declined</h1>\n      <p>Operations has been alerted to reassign this booking to an alternate provider.</p>\n     </div>`;\n\nreturn [{\n  json: {\n    item_id: itemId,\n    token: token,\n    status: isConfirmed ? 'Confirmed' : 'Declined',\n    voucher_number: voucherNum,\n    html_response: htmlResponse\n  }\n}];"
+      },
+      "name": "Code: Process Supplier Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        540
+      ],
+      "id": "process-response-05"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.html_response }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/html"
+              }
+            ]
+          }
+        }
+      },
+      "name": "Webhook: Render Confirmation Page",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        540
+      ],
+      "id": "render-response-06"
+    },
+    {
+      "parameters": {
+        "channel": "#dmc-operations",
+        "text": "=🛎️ *Supplier Status Update*\n*Item Ref:* `{{ $json.item_id }}`\n*Status:* {{ $json.status === 'Confirmed' ? '✅ Confirmed' : '🚨 DECLINED - Action Required' }}\n*Voucher Number:* `{{ $json.voucher_number || 'N/A' }}`",
+        "options": {}
+      },
+      "name": "Slack: Alert Operations Desk",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        960,
+        540
+      ],
+      "id": "alert-ops-07"
+    }
+  ],
+  "connections": {
+    "Webhook: Booking Won / Deposit Paid": {
+      "main": [
+        [
+          {
+            "node": "Code: Generate 1-Click Tokens & Links",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Generate 1-Click Tokens & Links": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp / Email: Send to Supplier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook: Supplier Click Listener": {
+      "main": [
+        [
+          {
+            "node": "Code: Process Supplier Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Process Supplier Response": {
+      "main": [
+        [
+          {
+            "node": "Webhook: Render Confirmation Page",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slack: Alert Operations Desk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

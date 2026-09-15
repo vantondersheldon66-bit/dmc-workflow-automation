@@ -1,0 +1,9 @@
+tariff_id,supplier_id,service_title,category,pricing_unit,currency,net_rate,valid_from,valid_to,cancellation_policy
+TAR-TRN-01,SUP-TRN-001,Naples Airport (NAP) to Sorrento Hotel (Mercedes V-Class),Transport,Per Vehicle,EUR,180.00,2026-01-01,2026-12-31,Free cancellation up to 24h prior
+TAR-TRN-02,SUP-TRN-001,Sorrento to Positano/Ravello Transfer,Transport,Per Vehicle,EUR,160.00,2026-01-01,2026-12-31,Free cancellation up to 24h prior
+TAR-TRN-03,SUP-TRN-001,Full Day Chauffeur at Disposal (8 Hours Amalfi Coast),Transport,Per Vehicle,EUR,650.00,2026-01-01,2026-12-31,Free cancellation up to 48h prior
+TAR-HTL-01,SUP-HTL-002,Deluxe Sea View Room with Breakfast (Low Season),Accommodation,Per Room / Night,EUR,620.00,2026-04-01,2026-05-31,Free cancellation up to 14 days prior
+TAR-HTL-02,SUP-HTL-002,Deluxe Sea View Room with Breakfast (High Season),Accommodation,Per Room / Night,EUR,1150.00,2026-06-01,2026-09-30,Non-refundable within 30 days
+TAR-HTL-03,SUP-HTL-001,Executive Room Belvedere with Infinity Pool Access,Accommodation,Per Room / Night,EUR,1350.00,2026-05-01,2026-10-31,Free cancellation up to 21 days prior
+TAR-GDE-01,SUP-GDE-001,Private Guided Tour of Pompeii Ruins (3 Hours VIP),Guide,Per Group,EUR,280.00,2026-01-01,2026-12-31,Free cancellation up to 48h prior
+TAR-ACT-01,SUP-ACT-001,Full Day Private Riva Yacht Charter around Capri with Prosecco,Boat Charter,Per Group,EUR,1900.00,2026-05-01,2026-10-15,Weather-permitting cancellation or reschedule

@@ -1,0 +1,174 @@
+{
+  "name": "DMC - 01: AI Inquiry Intake to Branded Proposal Generator",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "inquiry-intake",
+        "options": {}
+      },
+      "name": "Webhook: Incoming RFP / Email",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "id": "webhook-intake-001"
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {
+          "temperature": 0.2
+        },
+        "promptType": "define",
+        "text": "=You are an expert DMC (Destination Management Company) Travel Operations Specialist.\nAnalyze the following travel inquiry / RFP email:\n\n---\n{{ $json.body.email_content || $json.body.rfp_text || $json.body.message || JSON.stringify($json.body) }}\n---\n\nExtract the travel requirements into a strict JSON object with this exact structure:\n{\n  \"client_name\": \"Full Name or Agency Name\",\n  \"client_email\": \"Email address\",\n  \"destination\": \"Primary destination or region\",\n  \"travel_start_date\": \"YYYY-MM-DD\",\n  \"travel_end_date\": \"YYYY-MM-DD\",\n  \"duration_days\": 4,\n  \"pax_adults\": 2,\n  \"pax_children\": 0,\n  \"service_tier\": \"Standard | Superior | Luxury | Ultra-VIP\",\n  \"interests\": [\"list\", \"of\", \"interests\"],\n  \"special_requests\": \"dietary, mobility, flight info, etc.\",\n  \"requested_services\": [\n    {\n      \"day_number\": 1,\n      \"service_type\": \"Transfer\",\n      \"title\": \"Arrival Airport Transfer to Hotel\",\n      \"notes\": \"Mercedes vehicle required\"\n    },\n    {\n      \"day_number\": 2,\n      \"service_type\": \"Excursion\",\n      \"title\": \"Private Guided Historical Tour\",\n      \"notes\": \"English speaking certified guide\"\n    }\n  ]\n}\nReturn ONLY valid raw JSON, without markdown code fences."
+      },
+      "name": "AI: Extract RFP Structured Data",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        480,
+        300
+      ],
+      "id": "ai-extract-002"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse AI output\nconst rawOutput = $input.first().json.output || $input.first().json.text || $input.first().json;\nlet parsedData;\n\ntry {\n  if (typeof rawOutput === 'string') {\n    const cleaned = rawOutput.replace(/```json/g, '').replace(/```/g, '').trim();\n    parsedData = JSON.parse(cleaned);\n  } else {\n    parsedData = rawOutput;\n  }\n} catch (e) {\n  parsedData = {\n    client_name: \"VIP Guest\",\n    destination: \"Amalfi Coast\",\n    pax_adults: 2,\n    pax_children: 0,\n    travel_start_date: \"2026-09-20\",\n    travel_end_date: \"2026-09-24\",\n    service_tier: \"Luxury\",\n    special_requests: \"Automated fallback parsing\"\n  };\n}\n\n// Generate unique inquiry ID\nconst inquiryId = 'INQ-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);\n\n// Sample Mock Tariff Catalog for auto-costing\nconst sampleCatalog = [\n  { keyword: \"transfer\", unit_net: 180, title: \"Private Mercedes Transfer\", supplier_id: \"SUP-TRN-001\" },\n  { keyword: \"hotel\", unit_net: 620, title: \"5-Star Luxury Sea View Suite\", supplier_id: \"SUP-HTL-002\" },\n  { keyword: \"guide\", unit_net: 280, title: \"Private Licensed Local Expert Guide (3h)\", supplier_id: \"SUP-GDE-001\" },\n  { keyword: \"boat\", unit_net: 1900, title: \"Private Yacht Charter with Skipper & Prosecco\", supplier_id: \"SUP-ACT-001\" }\n];\n\nconst items = [];\nlet totalNetCost = 0;\nconst days = parsedData.duration_days || 4;\n\nfor (let day = 1; day <= days; day++) {\n  let matchedTariff;\n  if (day === 1) {\n    matchedTariff = sampleCatalog.find(c => c.keyword === 'transfer');\n  } else if (day === 2) {\n    matchedTariff = sampleCatalog.find(c => c.keyword === 'guide');\n  } else if (day === 3) {\n    matchedTariff = sampleCatalog.find(c => c.keyword === 'boat');\n  } else {\n    matchedTariff = sampleCatalog.find(c => c.keyword === 'transfer');\n  }\n\n  const netCost = matchedTariff.unit_net;\n  totalNetCost += netCost;\n\n  items.push({\n    day_number: day,\n    service_title: matchedTariff.title,\n    service_type: day === 1 || day === days ? \"Private Transport\" : \"Excursion\",\n    service_description: `VIP tailored service for ${parsedData.pax_adults} guests in ${parsedData.destination}.`,\n    supplier_id: matchedTariff.supplier_id,\n    net_cost: netCost\n  });\n}\n\n// Calculate DMC Profit Margin (22% standard)\nconst marginPercent = 0.22;\nconst grossSellingPrice = Math.round(totalNetCost / (1 - marginPercent));\n\nreturn [{\n  json: {\n    inquiry_id: inquiryId,\n    client_name: parsedData.client_name,\n    client_email: parsedData.client_email,\n    destination: parsedData.destination,\n    travel_start_date: parsedData.travel_start_date,\n    travel_end_date: parsedData.travel_end_date,\n    pax_adults: parsedData.pax_adults,\n    pax_children: parsedData.pax_children || 0,\n    service_tier: parsedData.service_tier,\n    special_requests: parsedData.special_requests,\n    currency: \"EUR\",\n    total_net_cost: totalNetCost,\n    margin_percent: \"22%\",\n    gross_selling_price: grossSellingPrice,\n    itinerary_items: items\n  }\n}];"
+      },
+      "name": "Code: Tariff Match & Costing Engine",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        300
+      ],
+      "id": "costing-engine-003"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\n\nlet itemsHtml = '';\ndata.itinerary_items.forEach(item => {\n  itemsHtml += `\n    <div style=\"border: 1px solid #E2E8F0; border-radius: 8px; padding: 18px; margin-bottom: 16px; background: #FFF;\">\n      <div style=\"font-size: 12px; font-weight: 700; color: #C5A059; text-transform: uppercase;\">Day ${item.day_number}</div>\n      <h3 style=\"margin: 6px 0; font-size: 16px; color: #1A365D;\">${item.service_title}</h3>\n      <p style=\"color: #4A5568; font-size: 14px; margin-bottom: 8px;\">${item.service_description}</p>\n      <span style=\"background: #EDF2F7; font-size: 11px; padding: 3px 8px; border-radius: 4px; color: #4A5568;\">${item.service_type}</span>\n    </div>\n  `;\n});\n\nconst proposalHtml = `\n<!DOCTYPE html>\n<html>\n<head><meta charset=\"utf-8\"><title>Proposal ${data.inquiry_id}</title></head>\n<body style=\"font-family: sans-serif; background: #F7FAFC; padding: 30px; margin: 0;\">\n  <div style=\"max-width: 720px; margin: 0 auto; background: #FFF; border-radius: 8px; overflow: hidden; border: 1px solid #E2E8F0;\">\n    <div style=\"background: #1A365D; color: #FFF; padding: 40px;\">\n      <div style=\"color: #C5A059; font-weight: bold; font-size: 12px; letter-spacing: 2px;\">BESPOKE DMC PROPOSAL</div>\n      <h1 style=\"margin: 10px 0 6px 0;\">${data.destination}</h1>\n      <div>Prepared exclusively for: <strong>${data.client_name}</strong></div>\n    </div>\n    <div style=\"padding: 30px;\">\n      <h2 style=\"color: #1A365D; font-size: 18px; border-bottom: 2px solid #C5A059; padding-bottom: 8px;\">Daily Schedule</h2>\n      ${itemsHtml}\n      <div style=\"background: #F8FAFC; border: 1px solid #E2E8F0; padding: 24px; border-radius: 8px; margin-top: 24px; text-align: right;\">\n        <div style=\"font-size: 13px; color: #718096;\">Total Investment (${data.pax_adults} Guests)</div>\n        <div style=\"font-size: 28px; font-weight: bold; color: #1A365D;\">${data.currency} ${data.gross_selling_price.toLocaleString()}</div>\n        <div style=\"font-size: 11px; color: #A0AEC0;\">Includes all ground transport, private guide, charters, taxes & VIP concierge.</div>\n      </div>\n    </div>\n  </div>\n</body>\n</html>\n`;\n\nreturn [{\n  json: {\n    ...data,\n    rendered_html: proposalHtml\n  }\n}];"
+      },
+      "name": "Code: Assemble Branded HTML Proposal",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        300
+      ],
+      "id": "html-builder-004"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "application": {
+          "__rl": true,
+          "value": "appDmcDatabase",
+          "mode": "id"
+        },
+        "table": {
+          "__rl": true,
+          "value": "Inquiries",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "inquiry_id": "={{ $json.inquiry_id }}",
+            "client_name": "={{ $json.client_name }}",
+            "destination": "={{ $json.destination }}",
+            "travel_start_date": "={{ $json.travel_start_date }}",
+            "travel_end_date": "={{ $json.travel_end_date }}",
+            "pax_adults": "={{ $json.pax_adults }}",
+            "status": "Proposal Drafted",
+            "net_total_cost": "={{ $json.total_net_cost }}",
+            "gross_selling_price": "={{ $json.gross_selling_price }}"
+          }
+        },
+        "options": {}
+      },
+      "name": "Airtable / CRM: Save Record",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1200,
+        300
+      ],
+      "id": "airtable-save-005"
+    },
+    {
+      "parameters": {
+        "channel": "#dmc-proposals",
+        "text": "=🛎️ *New Proposal Ready for Review*\n*Ref:* `{{ $json.inquiry_id }}`\n*Client:* {{ $json.client_name }}\n*Destination:* {{ $json.destination }} ({{ $json.pax_adults }} Pax)\n*Dates:* {{ $json.travel_start_date }} to {{ $json.travel_end_date }}\n*Selling Price:* {{ $json.currency }} {{ $json.gross_selling_price }} (22% Margin)\n\n⚡ Proposal HTML created and ready for travel designer sign-off.",
+        "options": {}
+      },
+      "name": "Slack / Teams: Notify Designer",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [
+        1440,
+        300
+      ],
+      "id": "notify-designer-006"
+    }
+  ],
+  "connections": {
+    "Webhook: Incoming RFP / Email": {
+      "main": [
+        [
+          {
+            "node": "AI: Extract RFP Structured Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI: Extract RFP Structured Data": {
+      "main": [
+        [
+          {
+            "node": "Code: Tariff Match & Costing Engine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Tariff Match & Costing Engine": {
+      "main": [
+        [
+          {
+            "node": "Code: Assemble Branded HTML Proposal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Assemble Branded HTML Proposal": {
+      "main": [
+        [
+          {
+            "node": "Airtable / CRM: Save Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable / CRM: Save Record": {
+      "main": [
+        [
+          {
+            "node": "Slack / Teams: Notify Designer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

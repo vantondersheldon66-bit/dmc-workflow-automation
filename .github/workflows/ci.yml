@@ -1,0 +1,72 @@
+name: DMC Platform CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-and-validate:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Verify Python Syntax & Compilation
+      run: |
+        python -m py_compile server.py db.py comm_gateway.py flight_tracker.py payment_checkout.py fx_vat_engine.py pdf_exporter.py
+
+    - name: Initialize SQLite Database & Verify Seeds
+      run: |
+        python db.py
+
+    - name: Run Core Business Logic Automated Tests
+      run: |
+        python -c "
+        import fx_vat_engine, flight_tracker, payment_checkout, comm_gateway, db
+
+        # 1. Test FX Conversion & Buffer
+        res = fx_vat_engine.fx_vat_engine.convert_from_eur(7654.0, 'USD', apply_buffer=True)
+        assert res['converted_amount'] > 0, 'FX conversion failed'
+        assert res['effective_rate'] < res['spot_rate'], 'Buffer not applied'
+
+        # 2. Test TOMS VAT Formula
+        vat = fx_vat_engine.fx_vat_engine.calculate_travel_margin_vat(5970.0, 7654.0)
+        assert vat['vat_on_margin'] == 303.67, f'VAT calculation incorrect: {vat}'
+        assert vat['net_profit_after_vat'] == 1380.33, 'Net profit calculation incorrect'
+
+        # 3. Test Flight Rescheduling Logic
+        flight = flight_tracker.flight_tracker.check_flight('AZ 1284')
+        assert flight['status'] == 'Delayed', 'Flight tracker sandbox failed'
+
+        # 4. Test Payment Session Generator
+        session = payment_checkout.payment_engine.create_deposit_session('INQ-2026-001', 0.30)
+        assert session['deposit_amount'] > 0, 'Deposit calculation failed'
+
+        print('ALL CI LOGIC CHECKS PASSED!')
+        "
+
+    - name: Validate n8n Workflow JSON Schemas
+      run: |
+        python -c "
+        import json, glob
+        files = glob.glob('workflows/*.json')
+        assert len(files) >= 3, 'Missing workflow files'
+        for f in files:
+            with open(f, 'r', encoding='utf-8') as fp:
+                data = json.load(fp)
+                assert 'nodes' in data, f'Invalid workflow schema in {f}'
+                assert len(data['nodes']) > 0, f'No nodes in {f}'
+            print(f'Valid n8n workflow: {f}')
+        print('ALL WORKFLOW JSON FILES VALID!')
+        "
