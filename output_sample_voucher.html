@@ -2,213 +2,310 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Ground Service Voucher - VOUCH-2026-98144</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Official Ground Service Voucher - Donkey Destinations DMC</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;500;600;700&display=swap');
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #F3F4F6;
-      color: #1F2937;
-      padding: 30px;
+      background-color: #F8FAFC;
+      color: #1E293B;
+      padding: 30px 15px;
       line-height: 1.5;
     }
 
+    .action-bar {
+      max-width: 780px;
+      margin: 0 auto 20px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0F1E36;
+      padding: 12px 24px;
+      border-radius: 12px;
+      color: #FFF;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+    .action-bar .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .action-bar .brand-icon {
+      background: #C5A059;
+      color: #0F1E36;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.8rem;
+    }
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      background: #C5A059;
+      color: #0F1E36;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { background: #d8b268; }
+
     .voucher-card {
-      max-width: 750px;
+      max-width: 780px;
       margin: 0 auto;
       background: #FFFFFF;
-      border-radius: 8px;
-      border: 2px dashed #9CA3AF;
+      border-radius: 14px;
+      border: 2px dashed #CBD5E1;
       overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
     }
 
     .header {
-      background: #111827;
+      background: linear-gradient(135deg, #0F1E36 0%, #1E3E62 100%);
       color: #FFFFFF;
-      padding: 24px 32px;
+      padding: 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .header .brand {
-      font-size: 1.25rem;
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .header-brand .logo {
+      width: 44px;
+      height: 44px;
+      background: #C5A059;
+      color: #0F1E36;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 900;
+    }
+    .header-brand .name {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 1.2rem;
       font-weight: 700;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
+    }
+    .header-brand .tag {
+      font-size: 0.7rem;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
     }
 
-    .header .badge {
+    .status-badge {
       background: #10B981;
       color: #FFFFFF;
       font-size: 0.75rem;
       font-weight: 700;
-      padding: 4px 12px;
+      padding: 6px 14px;
       border-radius: 9999px;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
 
     .body {
-      padding: 32px;
+      padding: 36px;
     }
 
     .voucher-meta {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 20px;
-      margin-bottom: 24px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid #E5E7EB;
+      margin-bottom: 28px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #E2E8F0;
     }
 
     .meta-block .label {
-      font-size: 0.75rem;
-      color: #6B7280;
+      font-size: 0.7rem;
+      color: #64748B;
       text-transform: uppercase;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
 
     .meta-block .val {
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      color: #111827;
+      color: #0F1E36;
       margin-top: 2px;
     }
 
     .service-details {
-      background: #F9FAFB;
-      border: 1px solid #E5E7EB;
-      border-radius: 6px;
-      padding: 20px;
-      margin-bottom: 24px;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 28px;
     }
 
     .service-details h3 {
-      font-size: 1.1rem;
-      color: #111827;
+      font-size: 1.15rem;
+      color: #0F1E36;
       margin-bottom: 8px;
     }
 
     .service-details p {
       font-size: 0.9rem;
-      color: #4B5563;
-      margin-bottom: 12px;
+      color: #475569;
+      margin-bottom: 16px;
     }
 
     .specs {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
       font-size: 0.85rem;
+      background: #FFFFFF;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #E2E8F0;
     }
 
-    .specs span strong {
-      color: #111827;
+    .specs .spec-item span:first-child {
+      color: #64748B;
+      font-size: 0.75rem;
+      display: block;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .specs .spec-item span:last-child {
+      font-weight: 700;
+      color: #0F1E36;
     }
 
     .instructions {
-      border-left: 4px solid #3B82F6;
       background: #EFF6FF;
-      padding: 16px 20px;
-      border-radius: 0 6px 6px 0;
-      margin-bottom: 24px;
+      border-left: 4px solid #3B82F6;
+      padding: 16px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.85rem;
+      color: #1E40AF;
+      margin-bottom: 28px;
     }
 
     .instructions h4 {
-      font-size: 0.85rem;
       font-weight: 700;
-      color: #1E40AF;
       margin-bottom: 4px;
-      text-transform: uppercase;
     }
 
-    .instructions p {
-      font-size: 0.85rem;
-      color: #1E3A8A;
+    .footer-note {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #94A3B8;
+      border-top: 1px solid #E2E8F0;
+      padding-top: 20px;
     }
 
-    .footer {
-      background: #F3F4F6;
-      padding: 20px 32px;
-      border-top: 1px solid #E5E7EB;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.8rem;
-      color: #4B5563;
-    }
-
-    .emergency {
-      color: #DC2626;
-      font-weight: 700;
+    @media print {
+      body { background: #FFF; padding: 0; }
+      .action-bar { display: none !important; }
+      .voucher-card { box-shadow: none; border-radius: 0; max-width: 100%; }
+      @page { margin: 15mm; size: A4 portrait; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Action Bar -->
+  <div class="action-bar">
+    <div class="brand">
+      <div class="brand-icon">DD</div>
+      <span>Donkey Destinations DMC</span>
+    </div>
+    <button onclick="window.print()" class="btn">
+      <span>🖨️</span> <span>Print Voucher</span>
+    </button>
+  </div>
+
   <div class="voucher-card">
+    
+    <!-- Header -->
     <div class="header">
-      <div>
-        <div class="brand">DMC GROUND SERVICE VOUCHER</div>
-        <div style="font-size: 0.8rem; color: #9CA3AF; margin-top: 2px;">Official Ground Operator Confirmation</div>
+      <div class="header-brand">
+        <div class="logo">DD</div>
+        <div>
+          <div class="name">DONKEY DESTINATIONS DMC</div>
+          <div class="tag">Ground Service Booking Voucher</div>
+        </div>
       </div>
-      <div class="badge">CONFIRMED & PREPAID</div>
+      <span class="status-badge">CONFIRMED & PRE-PAID</span>
     </div>
 
+    <!-- Body -->
     <div class="body">
+      
       <div class="voucher-meta">
         <div class="meta-block">
-          <div class="label">Voucher Number</div>
+          <div class="label">Voucher Reference</div>
           <div class="val">VOUCH-2026-98144</div>
         </div>
         <div class="meta-block">
-          <div class="label">Booking Ref</div>
-          <div class="val">INQ-2026-001</div>
+          <div class="label">Lead Guest</div>
+          <div class="val">Sarah Jenkins (2 Pax)</div>
         </div>
         <div class="meta-block">
           <div class="label">Service Date & Time</div>
-          <div class="val">2026-09-20 @ 14:30</div>
-        </div>
-      </div>
-
-      <div class="voucher-meta">
-        <div class="meta-block">
-          <div class="label">Lead Passenger</div>
-          <div class="val">Sarah Jenkins (Signature Travel Network)</div>
-        </div>
-        <div class="meta-block">
-          <div class="label">Party Size</div>
-          <div class="val">2 Adults, 0 Children</div>
-        </div>
-        <div class="meta-block">
-          <div class="label">Supplier Partner</div>
-          <div class="val">Amalfi Luxury Chauffeurs</div>
+          <div class="val">Sep 22, 2026 @ 10:00</div>
         </div>
       </div>
 
       <div class="service-details">
-        <h3>Private Mercedes V-Class Airport Transfer</h3>
-        <p>Meet & greet at Naples Airport (NAP) arrivals hall with name board, luggage handling, direct transfer to Sorrento.</p>
+        <h3>Full Day Private Riva Yacht Charter (Capri Excursion)</h3>
+        <p>Private full-day charter aboard a luxury Riva 44' yacht for coastal exploration around Capri and Faraglioni Rocks.</p>
+
         <div class="specs">
-          <span><strong>Meeting Point:</strong> Naples Airport Arrivals Hall</span>
-          <span><strong>Vehicle / Resource:</strong> Mercedes V-Class Extra Long (Chauffeur: Antonio De Luca)</span>
-          <span><strong>Payment:</strong> Billed directly to DMC Account</span>
-          <span><strong>Flight / Arrival:</strong> AZ 1284 (FCO -> NAP), Scheduled arrival 14:15</span>
+          <div class="spec-item">
+            <span>Supplier / Service Provider</span>
+            <span>Capri Luxury Charters S.r.l.</span>
+          </div>
+          <div class="spec-item">
+            <span>Departure Marina</span>
+            <span>Marina Grande, Capri (Dock #4)</span>
+          </div>
+          <div class="spec-item">
+            <span>Inclusions</span>
+            <span>Skipper, Fuel, Open Bar, Towels & Snorkel Gear</span>
+          </div>
+          <div class="spec-item">
+            <span>Payment Status</span>
+            <span>Direct Billing to Donkey Destinations DMC</span>
+          </div>
         </div>
       </div>
 
       <div class="instructions">
-        <h4>Important Instructions for Passenger & Driver / Guide</h4>
-        <p>Your chauffeur / guide will hold a name sign reading: <strong>"Sarah Jenkins (Signature Travel Network)"</strong> at the arrival gate or hotel lobby. In the event of flight delays exceeding 30 minutes, please contact the 24/7 operations desk immediately.</p>
+        <h4>📋 Boarding Instructions for Guests:</h4>
+        Present this digital or printed voucher to Captain Marco upon boarding at Dock #4. In case of weather updates, the DMC Operations Duty Desk is available 24/7 at +39 081 555 9999.
       </div>
+
+      <div class="footer-note">
+        Donkey Destinations DMC • Authorized Ground Service Voucher • Emergency Duty Desk: +39 081 555 9999
+      </div>
+
     </div>
 
-    <div class="footer">
-      <div>Issued by <strong>DMC Operations Team</strong></div>
-      <div class="emergency">24/7 Operations Duty Line: +39 081 555 9999</div>
-    </div>
   </div>
 
 </body>

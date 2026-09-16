@@ -2,17 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Bespoke Itinerary Proposal - INQ-2026-001</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luxury Bespoke Itinerary Proposal - Donkey Destinations DMC</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
     :root {
-      --primary: #1A365D;
+      --primary: #0F1E36;
+      --accent: #38BDF8;
       --gold: #C5A059;
       --bg: #F8FAFC;
       --card: #FFFFFF;
-      --text: #2D3748;
-      --muted: #718096;
+      --text: #1E293B;
+      --muted: #64748B;
       --border: #E2E8F0;
     }
 
@@ -22,352 +24,513 @@
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 40px 20px;
+      padding: 30px 15px;
     }
 
-    .container {
-      max-width: 860px;
+    /* Action Bar */
+    .action-bar {
+      max-width: 900px;
+      margin: 0 auto 20px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0F1E36;
+      padding: 12px 24px;
+      border-radius: 12px;
+      color: #FFF;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+    .action-bar .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .action-bar .brand-icon {
+      background: var(--gold);
+      color: #0F1E36;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.85rem;
+    }
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-gold { background: var(--gold); color: #0F1E36; }
+    .btn-gold:hover { background: #d8b268; }
+    .btn-outline { background: rgba(255,255,255,0.1); color: #FFF; border: 1px solid rgba(255,255,255,0.2); }
+    .btn-outline:hover { background: rgba(255,255,255,0.2); }
+
+    /* Proposal Container */
+    .proposal-container {
+      max-width: 900px;
       margin: 0 auto;
       background: var(--card);
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
       border: 1px solid var(--border);
     }
 
-    .hero {
-      background: linear-gradient(135deg, #1A365D 0%, #0F172A 100%);
+    /* Header & Branding */
+    .header {
+      background: linear-gradient(135deg, #0F1E36 0%, #1E3E62 100%);
       color: #FFFFFF;
-      padding: 60px 48px;
+      padding: 48px;
       position: relative;
     }
-
-    .badge {
-      display: inline-block;
-      background: rgba(197, 160, 89, 0.2);
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+    .dmc-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo-badge {
+      width: 48px;
+      height: 48px;
+      background: var(--gold);
+      color: #0F1E36;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 900;
+      box-shadow: 0 4px 12px rgba(197, 160, 89, 0.4);
+    }
+    .dmc-name {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .dmc-tagline {
+      font-size: 0.75rem;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+    .proposal-badge {
+      background: rgba(197, 160, 89, 0.15);
       border: 1px solid var(--gold);
       color: var(--gold);
-      padding: 4px 12px;
+      padding: 6px 14px;
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 2px;
-      font-weight: 600;
-      border-radius: 20px;
-      margin-bottom: 16px;
-    }
-
-    .hero h1 {
-      font-family: 'Cinzel', Georgia, serif;
-      font-size: 2.2rem;
       font-weight: 700;
-      letter-spacing: 0.5px;
-      margin-bottom: 12px;
-      line-height: 1.2;
+      border-radius: 20px;
     }
-
-    .hero p {
-      color: #CBD5E1;
+    .proposal-title {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 2.1rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+    .proposal-subtitle {
+      color: #94A3B8;
       font-size: 1.05rem;
       font-weight: 300;
     }
 
-    .meta-bar {
+    /* Flag Badges Bar */
+    .dest-flags {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .flag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: #E2E8F0;
+    }
+    .flag-pill img { width: 16px; height: 12px; border-radius: 2px; }
+
+    /* Metadata Grid */
+    .meta-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       background: #F1F5F9;
       border-bottom: 1px solid var(--border);
-      padding: 20px 48px;
-      gap: 16px;
+      padding: 24px 48px;
+      gap: 20px;
     }
-
-    .meta-item .label {
-      font-size: 0.75rem;
+    .meta-item .lbl {
+      font-size: 0.7rem;
       color: var(--muted);
       text-transform: uppercase;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.5px;
     }
-
-    .meta-item .value {
+    .meta-item .val {
       font-size: 0.95rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--primary);
-      margin-top: 2px;
+      margin-top: 3px;
     }
 
+    /* Content Area */
     .content {
       padding: 48px;
     }
-
-    .section-title {
-      font-family: 'Cinzel', Georgia, serif;
-      font-size: 1.4rem;
-      color: var(--primary);
-      margin-bottom: 24px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid var(--gold);
-      display: inline-block;
-    }
-
-    /* Day cards */
-    .timeline {
+    .section-header {
       display: flex;
-      flex-direction: column;
-      gap: 24px;
-      margin-bottom: 48px;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--gold);
+    }
+    .section-header h2 {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 1.25rem;
+      color: var(--primary);
     }
 
+    /* Itinerary Day Cards */
     .day-card {
+      background: #FFFFFF;
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 12px;
       padding: 24px;
-      transition: box-shadow 0.2s;
+      margin-bottom: 20px;
+      page-break-inside: avoid;
     }
-
-    .day-header {
+    .day-card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 12px;
     }
-
     .day-tag {
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .day-date {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    .day-title {
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--primary);
-      margin-bottom: 8px;
-    }
-
-    .day-description {
-      font-size: 0.95rem;
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    .service-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      background: var(--primary);
+      color: #FFF;
       font-size: 0.75rem;
-      background: #E2E8F0;
-      color: #334155;
-      padding: 2px 10px;
-      border-radius: 12px;
-      margin-top: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+    .day-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .day-desc {
+      font-size: 0.9rem;
+      color: #475569;
+      margin-bottom: 16px;
     }
 
-    /* Pricing Section */
-    .pricing-box {
+    /* Services Table inside Day */
+    .service-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    .service-table th {
       background: #F8FAFC;
-      border: 1px solid var(--border);
-      border-radius: 8px;
+      text-align: left;
+      padding: 8px 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .service-table td {
+      padding: 10px 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Investment Summary Card */
+    .pricing-card {
+      background: linear-gradient(135deg, #0F1E36 0%, #1E3E62 100%);
+      color: #FFF;
       padding: 32px;
-      margin-bottom: 40px;
+      border-radius: 14px;
+      margin-top: 36px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      page-break-inside: avoid;
     }
-
-    .pricing-box .quote-details h3 {
-      font-size: 1.1rem;
-      color: var(--primary);
+    .pricing-info h3 {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 1.3rem;
+      color: var(--gold);
       margin-bottom: 4px;
     }
-
-    .pricing-box .quote-details p {
+    .pricing-info p {
       font-size: 0.85rem;
-      color: var(--muted);
+      color: #94A3B8;
     }
-
-    .pricing-box .quote-price {
+    .pricing-total {
       text-align: right;
     }
-
-    .price-number {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--primary);
+    .pricing-total .amt {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #FFF;
+      line-height: 1;
     }
-
-    .price-currency {
-      font-size: 1.2rem;
-      color: var(--gold);
-      font-weight: 600;
-    }
-
-    .price-note {
+    .pricing-total .sub {
       font-size: 0.75rem;
-      color: var(--muted);
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
       margin-top: 4px;
     }
 
     /* Terms & Footer */
-    .inclusions-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-bottom: 40px;
-    }
-
-    .inclusion-box h4 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--primary);
-      margin-bottom: 8px;
-    }
-
-    .inclusion-box ul {
-      list-style-type: none;
-    }
-
-    .inclusion-box ul li {
-      font-size: 0.85rem;
-      color: #4B5563;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
+    .terms {
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
     }
 
     .footer {
-      border-top: 1px solid var(--border);
+      background: #F1F5F9;
       padding: 24px 48px;
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
       font-size: 0.8rem;
       color: var(--muted);
-      background: #FAFAFA;
+    }
+
+    /* Print Optimization CSS */
+    @media print {
+      body { background: #FFF; padding: 0; }
+      .action-bar { display: none !important; }
+      .proposal-container { box-shadow: none; border: none; border-radius: 0; max-width: 100%; }
+      @page { margin: 15mm; size: A4 portrait; }
+      .day-card { page-break-inside: avoid; }
+      .pricing-card { page-break-inside: avoid; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Hero Banner -->
-    <div class="hero">
-      <div class="badge">Bespoke Travel Proposal</div>
-      <h1>Amalfi Coast & Capri</h1>
-      <p>Exclusively curated for Sarah Jenkins (Signature Travel Network)</p>
-    </div>
 
-    <!-- Metadata Bar -->
-    <div class="meta-bar">
-      <div class="meta-item">
-        <div class="label">Proposal Ref</div>
-        <div class="value">INQ-2026-001</div>
-      </div>
-      <div class="meta-item">
-        <div class="label">Dates</div>
-        <div class="value">2026-09-20 - 2026-09-24</div>
-      </div>
-      <div class="meta-item">
-        <div class="label">Guests</div>
-        <div class="value">2 Adults </div>
-      </div>
-      <div class="meta-item">
-        <div class="label">Service Tier</div>
-        <div class="value">Ultra-VIP</div>
-      </div>
+  <!-- Interactive Action Bar -->
+  <div class="action-bar">
+    <div class="brand">
+      <div class="brand-icon">DD</div>
+      <span>Donkey Destinations DMC</span>
     </div>
+    <div class="btn-group">
+      <button onclick="window.print()" class="btn btn-gold">
+        <span>🖨️</span> <span>Print / Save PDF</span>
+      </button>
+      <a href="/portal" target="_blank" class="btn btn-outline">
+        <span>📱</span> <span>Guest Portal</span>
+      </a>
+    </div>
+  </div>
 
-    <!-- Main Content -->
-    <div class="content">
-      <h2 class="section-title">Day-by-Day Program</h2>
-
-      <div class="timeline">
-        <!-- Loop Itinerary Items -->
-        
-  <div class="day-card">
-    <div class="day-header">
-      <span class="day-tag">Day 1</span>
-      <span class="day-date">2026-09-20</span>
-    </div>
-    <h3 class="day-title">Naples Airport (NAP) to Sorrento Hotel (Mercedes V-Class)</h3>
-    <p class="day-description">Exclusive private service for 2 guests. Supplier reference: SUP-TRN-001.</p>
-    <span class="service-badge">Arrival Transfer</span>
-  </div>
-  <div class="day-card">
-    <div class="day-header">
-      <span class="day-tag">Day 2</span>
-      <span class="day-date">2026-09-21</span>
-    </div>
-    <h3 class="day-title">Private Guided Tour of Pompeii Ruins (3 Hours VIP)</h3>
-    <p class="day-description">Exclusive private service for 2 guests. Supplier reference: SUP-GDE-001.</p>
-    <span class="service-badge">Private Archaeology Guide</span>
-  </div>
-  <div class="day-card">
-    <div class="day-header">
-      <span class="day-tag">Day 3</span>
-      <span class="day-date">2026-09-22</span>
-    </div>
-    <h3 class="day-title">Full Day Private Riva Yacht Charter around Capri with Prosecco</h3>
-    <p class="day-description">Exclusive private service for 2 guests. Supplier reference: SUP-ACT-001.</p>
-    <span class="service-badge">Private Yacht Charter</span>
-  </div>
-  <div class="day-card">
-    <div class="day-header">
-      <span class="day-tag">Day 4</span>
-      <span class="day-date">2026-09-24</span>
-    </div>
-    <h3 class="day-title">Sorrento to Positano/Ravello Transfer</h3>
-    <p class="day-description">Exclusive private service for 2 guests. Supplier reference: SUP-TRN-001.</p>
-    <span class="service-badge">Departure Transfer</span>
-  </div>
-      </div>
-
-      <!-- Pricing Summary -->
-      <div class="pricing-box">
-        <div class="quote-details">
-          <h3>Total Investment</h3>
-          <p>Includes all private transfers, accommodations, licensed guides, and boat charters as detailed above.</p>
-        </div>
-        <div class="quote-price">
+  <!-- Proposal Main Container -->
+  <div class="proposal-container">
+    
+    <!-- Luxury Header -->
+    <div class="header">
+      <div class="header-top">
+        <div class="dmc-logo">
+          <div class="logo-badge">DD</div>
           <div>
-            <span class="price-currency">EUR</span>
-            <span class="price-number">7 654</span>
+            <div class="dmc-name">DONKEY DESTINATIONS DMC</div>
+            <div class="dmc-tagline">Bespoke Luxury Ground Handling & Operations</div>
           </div>
-          <div class="price-note">All taxes, private driver gratuities & VAT included</div>
+        </div>
+        <span class="proposal-badge">Official Proposal</span>
+      </div>
+
+      <h1 class="proposal-title">Bespoke Luxury Experience</h1>
+      <p class="proposal-subtitle">Prepared exclusively for Signature Travel Network (Ref: INQ-2026-001)</p>
+
+      <div class="dest-flags">
+        <span class="flag-pill"><img src="https://flagcdn.com/w80/mz.png" alt="MZ"> Mozambique</span>
+        <span class="flag-pill"><img src="https://flagcdn.com/w80/bs.png" alt="BS"> Caribbean</span>
+        <span class="flag-pill"><img src="https://flagcdn.com/w80/nl.png" alt="NL"> Holland</span>
+        <span class="flag-pill"><img src="https://flagcdn.com/w80/us.png" alt="US"> USA</span>
+      </div>
+    </div>
+
+    <!-- Metadata Grid -->
+    <div class="meta-grid">
+      <div class="meta-item">
+        <div class="lbl">Lead Guest</div>
+        <div class="val">Sarah Jenkins & Partner</div>
+      </div>
+      <div class="meta-item">
+        <div class="lbl">Travel Dates</div>
+        <div class="val">Sep 20 – Sep 24, 2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="lbl">Party Size</div>
+        <div class="val">2 VIP Adults</div>
+      </div>
+      <div class="meta-item">
+        <div class="lbl">Service Tier</div>
+        <div class="val">Ultra Luxury VIP</div>
+      </div>
+    </div>
+
+    <!-- Proposal Body Content -->
+    <div class="content">
+      
+      <div class="section-header">
+        <h2>Curated Daily Itinerary Schedule</h2>
+      </div>
+
+      <!-- Day 1 -->
+      <div class="day-card">
+        <div class="day-card-header">
+          <span class="day-tag">Day 1 • Sep 20, 2026</span>
+          <span class="day-title">VIP Arrival & Sea View Suite Check-In</span>
+        </div>
+        <p class="day-desc">Private tarmac pickup upon flight arrival with luxury Mercedes V-Class transfer directly to your sea-view cliffside retreat.</p>
+        
+        <table class="service-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Service Details</th>
+              <th>Inclusions & Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:700;">14:30</td>
+              <td style="font-weight:600;">Private Mercedes V-Class Airport Transfer</td>
+              <td>Chilled towels, sparkling water & English-speaking chauffeur</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;">15:30</td>
+              <td style="font-weight:600;">Deluxe Sea View Suite Check-In</td>
+              <td>Welcome Champagne, fruit basket & priority concierge onboarding</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Day 2 -->
+      <div class="day-card">
+        <div class="day-card-header">
+          <span class="day-tag">Day 2 • Sep 21, 2026</span>
+          <span class="day-title">Private Archeological Tour & Wine Tasting</span>
+        </div>
+        <p class="day-desc">Exclusive private access guided tour with certified senior archeologist followed by a private vineyard lunch overlooking the coast.</p>
+        
+        <table class="service-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Service Details</th>
+              <th>Inclusions & Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:700;">09:30</td>
+              <td style="font-weight:600;">Private VIP Pompeii Archaeology Tour</td>
+              <td>Skip-the-line fast track tickets & certified expert historian</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;">13:00</td>
+              <td style="font-weight:600;">Lacryma Christi Vineyard Wine Pairing Lunch</td>
+              <td>5-course tasting menu with reserve vintage pairings</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Day 3 -->
+      <div class="day-card">
+        <div class="day-card-header">
+          <span class="day-tag">Day 3 • Sep 22, 2026</span>
+          <span class="day-title">Full Day Private Riva Yacht Excursion</span>
+        </div>
+        <p class="day-desc">Charter private Riva yacht for full-day coastal exploration, secret grotto swimming, and seaside dining.</p>
+        
+        <table class="service-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Service Details</th>
+              <th>Inclusions & Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:700;">10:00</td>
+              <td style="font-weight:600;">Private Riva Yacht Charter (Capri Excursion)</td>
+              <td>Licensed skipper, fuel, open bar, snorkel gear & towels</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Investment Summary Card -->
+      <div class="pricing-card">
+        <div class="pricing-info">
+          <h3>Total Package Investment</h3>
+          <p>All-inclusive ground services, private transfers, private guide & luxury charter</p>
+        </div>
+        <div class="pricing-total">
+          <div class="amt">€6,589.74</div>
+          <div class="sub">Taxes & EU TOMS VAT Included</div>
         </div>
       </div>
 
-      <!-- Inclusions & Exclusions -->
-      <div class="inclusions-grid">
-        <div class="inclusion-box">
-          <h4>Included in Proposal</h4>
-          <ul>
-            <li>✓ Private luxury Mercedes transfers with English-speaking chauffeur</li>
-            <li>✓ Private certified English-speaking local guides at all monuments</li>
-            <li>✓ VIP skip-the-line entrance tickets</li>
-            <li>✓ 24/7 dedicated on-the-ground DMC concierge support</li>
-          </ul>
-        </div>
-        <div class="inclusion-box">
-          <h4>Not Included</h4>
-          <ul>
-            <li>✕ International & domestic flights</li>
-            <li>✕ Meals and beverages not explicitly specified in the daily program</li>
-            <li>✕ City tourist taxes (payable directly to hotels at checkout)</li>
-            <li>✕ Travel and medical insurance</li>
-          </ul>
-        </div>
+      <!-- Terms & Conditions -->
+      <div class="terms">
+        <strong>Booking Terms & Guarantee:</strong> Proposal valid for 14 days from issue date. Services guaranteed upon receipt of 30% deposit. Full cancellation refund permitted up to 14 days prior to arrival under Donkey Destinations DMC standard terms.
       </div>
+
     </div>
 
     <!-- Footer -->
     <div class="footer">
-      <strong>Your Destination Management Partner</strong> | Inquiries: ops@dmcluxury.mock | 24/7 Ground Operations: +39 081 000 999
+      <div>Donkey Destinations DMC • Operations Desk: +39 081 555 9999</div>
+      <div>www.donkeydestinations.com</div>
     </div>
+
   </div>
+
 </body>
 </html>
