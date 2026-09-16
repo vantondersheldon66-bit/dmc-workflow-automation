@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Donkey Destinations | Luxury & Corporate DMC</title>
+  <meta name="description" content="Donkey Destinations — Premium Destination Management Company in Mozambique, Caribbean, Holland & USA."/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --blue-midnight: #030c1d;
+      --blue-deep: #071733;
+      --blue-royal: #0d2857;
+      --blue-ocean: #1d4ed8;
+      --blue-azure: #0284c7;
+      --blue-cyan: #00d2ff;
+      --blue-sky: #38bdf8;
+      --blue-ice: #e0f2fe;
+      --blue-mist: #f0f7ff;
+      --white: #ffffff;
+      --text-dark: #0f172a;
+      --text-muted: #475569;
+      --border-blue: rgba(0, 210, 255, 0.2);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text-dark);
+      background: var(--white);
+      overflow-x: hidden;
+      line-height: 1.65;
+    }
+
+    /* --- SLEEK NAVIGATION --- */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 80px;
+      background: rgba(3, 12, 29, 0.90);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 210, 255, 0.18);
+      transition: all 0.3s ease;
+    }
+
+    .logo { display: flex; flex-direction: column; text-decoration: none; }
+    .logo-main { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 800; color: var(--white); letter-spacing: -0.4px; }
+    .logo-sub { font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--blue-cyan); margin-top: 2px; }
+
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+    .nav-links a { color: rgba(255, 255, 255, 0.85); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: all 0.25s ease; }
+    .nav-links a:hover { color: var(--blue-cyan); transform: translateY(-1px); }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--blue-ocean), var(--blue-cyan));
+      color: var(--white) !important;
+      padding: 0.7rem 1.6rem;
+      border-radius: 50px;
+      font-weight: 700 !important;
+      box-shadow: 0 4px 20px rgba(0, 210, 255, 0.35);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .nav-cta:hover { transform: translateY(-2px) scale(1.03) !important; box-shadow: 0 8px 30px rgba(0, 210, 255, 0.55) !important; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 26px; height: 2px; background: var(--white); border-radius: 2px; }
+
+    /* --- HERO --- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background: linear-gradient(135deg, var(--blue-midnight) 0%, var(--blue-deep) 45%, #06193d 100%);
+      overflow: hidden;
+    }
+    .hero-glow-1 { position: absolute; top: -15%; right: -10%; width: 700px; height: 700px; background: radial-gradient(circle, rgba(0, 210, 255, 0.16) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+    .hero-glow-2 { position: absolute; bottom: -15%; left: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(29, 78, 216, 0.22) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+    .hero-grid-pattern { position: absolute; inset: 0; opacity: 0.04; background-image: linear-gradient(var(--white) 1px, transparent 1px), linear-gradient(90deg, var(--white) 1px, transparent 1px); background-size: 60px 60px; }
+    .hero-container { position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 150px 5% 90px; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 4.5rem; align-items: center; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.6rem; background: rgba(0, 210, 255, 0.08); border: 1px solid rgba(0, 210, 255, 0.3); color: var(--blue-cyan); padding: 0.5rem 1.3rem; border-radius: 50px; font-size: 0.78rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 1.8rem; box-shadow: 0 4px 16px rgba(0, 210, 255, 0.15); }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem, 4.5vw, 4.2rem); font-weight: 800; color: var(--white); line-height: 1.12; margin-bottom: 1.6rem; letter-spacing: -0.5px; }
+    .hero h1 span { background: linear-gradient(135deg, var(--blue-cyan), var(--blue-sky)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-description { font-size: 1.12rem; color: rgba(224, 242, 254, 0.85); line-height: 1.8; margin-bottom: 2.8rem; max-width: 540px; }
+    .hero-actions { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+    .btn-hero-primary { background: linear-gradient(135deg, var(--blue-ocean), var(--blue-cyan)); color: var(--white); padding: 1.05rem 2.5rem; border-radius: 50px; font-weight: 700; font-size: 0.98rem; text-decoration: none; box-shadow: 0 10px 30px rgba(0, 210, 255, 0.35); transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: inline-flex; align-items: center; gap: 0.6rem; }
+    .btn-hero-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 40px rgba(0, 210, 255, 0.5); }
+    .btn-hero-secondary { background: rgba(255, 255, 255, 0.05); color: var(--white); padding: 1.05rem 2.5rem; border-radius: 50px; font-weight: 600; font-size: 0.98rem; text-decoration: none; border: 1px solid rgba(255, 255, 255, 0.25); backdrop-filter: blur(10px); transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+    .btn-hero-secondary:hover { background: rgba(255, 255, 255, 0.12); border-color: var(--blue-cyan); color: var(--blue-cyan); transform: translateY(-3px); }
+    .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 4rem; padding-top: 2.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+    .stat-number { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 800; color: var(--blue-cyan); }
+    .stat-label { font-size: 0.75rem; color: rgba(224, 242, 254, 0.6); text-transform: uppercase; letter-spacing: 1px; margin-top: 0.2rem; }
+
+    .hero-destinations-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; }
+    .hero-dest-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.25); border-radius: 20px; padding: 1.8rem 1.4rem; backdrop-filter: blur(14px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; align-items: flex-start; }
+    .hero-dest-card:hover { background: rgba(0, 210, 255, 0.12); border-color: var(--blue-cyan); transform: translateY(-6px) scale(1.02); box-shadow: 0 15px 35px rgba(0, 210, 255, 0.2); }
+    .hero-dest-icon { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.9rem; }
+    .hero-flag-img { width: 34px; height: 24px; border-radius: 4px; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+    .hero-dest-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
+    .hero-dest-desc { font-size: 0.8rem; color: rgba(224, 242, 254, 0.75); line-height: 1.5; }
+
+    /* --- SECTION SHARED --- */
+    section { padding: 120px 5%; }
+    .section-inner { max-width: 1280px; margin: 0 auto; }
+    .section-tag { font-size: 0.78rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--blue-ocean); margin-bottom: 0.8rem; display: inline-block; }
+    .section-heading { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 3.5vw, 3.2rem); font-weight: 800; color: var(--blue-midnight); line-height: 1.18; margin-bottom: 1.2rem; }
+    .section-subtext { font-size: 1.05rem; color: var(--text-muted); max-width: 620px; line-height: 1.75; }
+    .header-center { text-align: center; margin-bottom: 4.5rem; }
+    .header-center .section-subtext { margin: 0 auto; }
+
+    /* --- ABOUT SECTION --- */
+    .about-section { background: var(--blue-mist); position: relative; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .about-list { display: flex; flex-direction: column; gap: 1.8rem; margin-top: 2.5rem; }
+    .about-item { display: flex; gap: 1.3rem; align-items: flex-start; }
+    .about-icon { width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg, var(--blue-deep), var(--blue-ocean)); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; box-shadow: 0 8px 20px rgba(7, 23, 51, 0.2); }
+    .about-info h4 { font-size: 1.05rem; font-weight: 700; color: var(--blue-midnight); margin-bottom: 0.3rem; }
+    .about-info p { font-size: 0.9rem; color: var(--text-muted); }
+    .about-visual-card { background: linear-gradient(135deg, var(--blue-midnight), var(--blue-deep)); border-radius: 24px; padding: 3.5rem; color: var(--white); position: relative; box-shadow: 0 25px 50px rgba(3, 12, 29, 0.25); border: 1px solid rgba(0, 210, 255, 0.15); }
+    .visual-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .visual-subtitle { font-size: 0.88rem; color: var(--blue-cyan); margin-bottom: 2.5rem; }
+    .metric-row { display: flex; justify-content: space-between; align-items: center; padding: 1.05rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+    .metric-name { font-size: 0.91rem; color: rgba(255, 255, 255, 0.8); }
+    .metric-val { font-weight: 800; font-size: 1rem; color: var(--blue-cyan); }    /* --- DESTINATIONS SLIDESHOW CARDS --- */
+    .destinations-section { background: var(--white); }
+    .destinations-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.8rem; }
+    
+    .dest-card-full {
+      background: var(--blue-midnight);
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+      min-height: 440px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2.2rem 1.6rem;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid rgba(0, 210, 255, 0.2);
+    }
+    .dest-card-full:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 45px rgba(3, 12, 29, 0.35);
+      border-color: var(--blue-cyan);
+    }
+
+    /* SLIDESHOW STYLES */
+    .dest-slideshow {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .dest-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out, transform 4s ease-out;
+      transform: scale(1);
+    }
+    .dest-slide.active {
+      opacity: 1;
+      transform: scale(1.06);
+    }
+
+    .dest-gradient-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(to top, rgba(3, 12, 29, 0.98) 0%, rgba(7, 23, 51, 0.70) 50%, rgba(7, 23, 51, 0.25) 100%);
+    }
+
+    /* SLIDER CONTROLS */
+    .slider-nav {
+      position: absolute;
+      top: 18px; right: 18px;
+      z-index: 10;
+      display: flex;
+      gap: 6px;
+    }
+    .slider-btn {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(3, 12, 29, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: var(--white);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.25s ease;
+    }
+    .slider-btn:hover {
+      background: var(--blue-cyan);
+      color: var(--blue-midnight);
+      border-color: var(--blue-cyan);
+      transform: scale(1.1);
+    }
+
+    .slider-dots {
+      position: absolute;
+      top: 24px; left: 20px;
+      z-index: 10;
+      display: flex;
+      gap: 6px;
+    }
+    .slider-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .slider-dot.active {
+      background: var(--blue-cyan);
+      width: 22px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px var(--blue-cyan);
+    }
+
+    .dest-details {
+      position: relative;
+      z-index: 2;
+    }
+
+    .dest-flag-name {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .flag-badge {
+      width: 36px;
+      height: 25px;
+      border-radius: 4px;
+      object-fit: cover;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.3);
+      flex-shrink: 0;
+    }
+
+    .dest-h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .dest-text {
+      font-size: 0.86rem;
+      color: rgba(224, 242, 254, 0.85);
+      line-height: 1.6;
+      margin-bottom: 1.4rem;
+    }
+
+    .dest-pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .dest-pill {
+      background: rgba(0, 210, 255, 0.15);
+      border: 1px solid rgba(0, 210, 255, 0.35);
+      color: var(--blue-cyan);
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* --- SERVICES SECTION --- */
+    .services-section { background: var(--blue-mist); }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .service-card { background: var(--white); border-radius: 20px; padding: 2.5rem; border: 1px solid var(--border-blue); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; }
+    .service-card:hover { border-color: var(--blue-cyan); box-shadow: 0 15px 40px rgba(0, 210, 255, 0.15); transform: translateY(-6px); }
+    .service-icon-box { width: 60px; height: 60px; border-radius: 16px; background: linear-gradient(135deg, var(--blue-deep), var(--blue-ocean)); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 1.7rem; margin-bottom: 1.5rem; box-shadow: 0 8px 20px rgba(29, 78, 216, 0.25); }
+    .service-card h3 { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--blue-midnight); margin-bottom: 0.8rem; }
+    .service-card p { font-size: 0.91rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; flex-grow: 1; }
+    .service-link { font-size: 0.88rem; font-weight: 700; color: var(--blue-ocean); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s ease; }
+    .service-link:hover { color: var(--blue-cyan); gap: 0.8rem; }
+
+    /* --- WHY US --- */
+    .why-section { background: linear-gradient(135deg, var(--blue-midnight) 0%, var(--blue-deep) 50%, #06193d 100%); color: var(--white); }
+    .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.2rem; margin-top: 4rem; }
+    .why-card { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(0, 210, 255, 0.2); border-radius: 20px; padding: 2.5rem 1.6rem; text-align: center; backdrop-filter: blur(8px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+    .why-card:hover { background: rgba(0, 210, 255, 0.12); border-color: var(--blue-cyan); transform: translateY(-6px) scale(1.02); }
+    .why-num { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 800; color: var(--blue-cyan); line-height: 1; margin-bottom: 0.6rem; }
+    .why-title { font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
+    .why-text { font-size: 0.85rem; color: rgba(224, 242, 254, 0.65); line-height: 1.6; }
+
+    /* --- TESTIMONIALS --- */
+    .testimonials-section { background: var(--white); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .testimonial-card { background: var(--blue-mist); border-radius: 20px; padding: 2.5rem; border: 1px solid var(--border-blue); border-left: 5px solid var(--blue-ocean); display: flex; flex-direction: column; justify-content: space-between; }
+    .stars { color: #f59e0b; font-size: 1.1rem; margin-bottom: 1.2rem; }
+    .testimonial-text { font-size: 0.95rem; color: var(--text-dark); line-height: 1.75; font-style: italic; margin-bottom: 2rem; }
+    .client-profile { display: flex; align-items: center; gap: 1rem; }
+    .client-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--blue-deep), var(--blue-ocean)); color: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; }
+    .client-name { font-size: 0.95rem; font-weight: 700; color: var(--blue-midnight); }
+    .client-role { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* --- CONTACT FORM --- */
+    .contact-section { background: var(--blue-mist); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; align-items: start; }
+    .contact-info-list { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-info-item { display: flex; align-items: center; gap: 1.2rem; font-size: 0.95rem; color: var(--text-dark); }
+    .contact-info-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--blue-ice); color: var(--blue-ocean); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .form-card { background: var(--white); border-radius: 24px; padding: 3rem; box-shadow: 0 15px 40px rgba(4, 15, 36, 0.08); border: 1px solid var(--border-blue); }
+    .form-card h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--blue-midnight); margin-bottom: 0.5rem; }
+    .form-card p.form-sub { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 2.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.3rem; }
+    .form-group label { font-size: 0.85rem; font-weight: 700; color: var(--blue-midnight); }
+    .form-group input, .form-group select, .form-group textarea { padding: 0.85rem 1.2rem; border: 1.5px solid var(--border-blue); border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.95rem; color: var(--text-dark); background: var(--white); outline: none; transition: all 0.2s ease; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--blue-cyan); box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.15); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .btn-submit { width: 100%; padding: 1.15rem; background: linear-gradient(135deg, var(--blue-midnight), var(--blue-ocean)); color: var(--white); border: none; border-radius: 10px; font-size: 1.05rem; font-weight: 800; cursor: pointer; box-shadow: 0 8px 25px rgba(4, 15, 36, 0.25); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); margin-top: 0.5rem; }
+    .btn-submit:hover { background: linear-gradient(135deg, var(--blue-deep), var(--blue-cyan)); transform: translateY(-3px); box-shadow: 0 12px 35px rgba(0, 210, 255, 0.4); }
+    .form-success-message { display: none; text-align: center; padding: 3.5rem 1rem; }
+    .success-icon { font-size: 4rem; margin-bottom: 1.5rem; }
+    .form-success-message h3 { font-family: 'Playfair Display', serif; color: var(--blue-midnight); font-size: 1.8rem; margin-bottom: 0.6rem; }
+    .form-success-message p { font-size: 0.95rem; color: var(--text-muted); }
+
+    footer { background: var(--blue-midnight); color: rgba(224, 242, 254, 0.7); padding: 80px 5% 40px; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.2fr; gap: 4rem; margin-bottom: 4rem; }
+    .footer-brand .logo-main { font-size: 1.5rem; }
+    .footer-brand p { font-size: 0.88rem; line-height: 1.75; margin-top: 1.2rem; max-width: 320px; }
+    .footer-col h5 { font-size: 0.8rem; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue-cyan); margin-bottom: 1.4rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.8rem; }
+    .footer-col ul a { text-decoration: none; color: rgba(224, 242, 254, 0.65); font-size: 0.88rem; transition: color 0.2s ease; }
+    .footer-col ul a:hover { color: var(--blue-cyan); }
+    .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+
+    @media (max-width: 1024px) {
+      .hero-container, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
+      .hero-container { text-align: center; }
+      .hero-description { margin-left: auto; margin-right: auto; }
+      .hero-actions, .hero-stats { justify-content: center; }
+      .hero-destinations-cards { max-width: 520px; margin: 0 auto; }
+      .destinations-grid, .services-grid, .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .destinations-grid, .services-grid, .why-grid, .form-row, .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+      section { padding: 80px 5%; }
+    }
+  </style>
+</head>
+<body>  <!-- NAV -->
+  <nav>
+    <a href="#home" class="logo">
+      <span class="logo-main">Donkey Destinations</span>
+      <span class="logo-sub">Destination Management Company</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#destinations">Destinations</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#testimonials">Clients</a></li>
+      <li><a href="#contact" class="nav-cta">Request Proposal</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
+    <div class="hero-grid-pattern"></div>
+    <div class="hero-container">
+      <div>
+        <div class="hero-badge">✦ Premium Global DMC Services</div>
+        <h1>Extraordinary <span>Journeys</span>,<br/>Flawlessly Executed</h1>
+        <p class="hero-description">
+          Donkey Destinations is your trusted Destination Management Company delivering seamless luxury leisure and corporate incentive travel across Mozambique, the Caribbean, Holland, and the USA.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-hero-primary">Request a Proposal →</a>
+          <a href="#destinations" class="btn-hero-secondary">Explore Destinations</a>
+        </div>
+        <div class="hero-stats">
+          <div><div class="stat-number">4</div><div class="stat-label">Destinations</div></div>
+          <div><div class="stat-number">500+</div><div class="stat-label">Events Managed</div></div>
+          <div><div class="stat-number">98%</div><div class="stat-label">Satisfaction</div></div>
+          <div><div class="stat-number">24/7</div><div class="stat-label">On-Ground Support</div></div>
+        </div>
+      </div>
+
+      <div class="hero-destinations-cards">
+        <div class="hero-dest-card">
+          <div class="hero-dest-icon">
+            <img src="https://flagcdn.com/w80/mz.png" class="hero-flag-img" alt="Mozambique Flag"/>
+          </div>
+          <div class="hero-dest-title">Mozambique</div>
+          <div class="hero-dest-desc">Indian Ocean coastlines, private islands & marine safaris.</div>
+        </div>
+        <div class="hero-dest-card">
+          <div class="hero-dest-icon">
+            <img src="https://flagcdn.com/w80/bs.png" class="hero-flag-img" alt="Bahamas Flag"/>
+            <img src="https://flagcdn.com/w80/bb.png" class="hero-flag-img" alt="Barbados Flag"/>
+          </div>
+          <div class="hero-dest-title">Caribbean</div>
+          <div class="hero-dest-desc">Luxury villa estates, yacht charters & island escapes.</div>
+        </div>
+        <div class="hero-dest-card">
+          <div class="hero-dest-icon">
+            <img src="https://flagcdn.com/w80/nl.png" class="hero-flag-img" alt="Holland Flag"/>
+          </div>
+          <div class="hero-dest-title">Holland</div>
+          <div class="hero-dest-desc">Cultural tours, tulip season MICE & Amsterdam venues.</div>
+        </div>
+        <div class="hero-dest-card">
+          <div class="hero-dest-icon">
+            <img src="https://flagcdn.com/w80/us.png" class="hero-flag-img" alt="USA Flag"/>
+          </div>
+          <div class="hero-dest-title">USA</div>
+          <div class="hero-dest-desc">NYC skylines, Miami beach retreats & Las Vegas summits.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div>
+          <span class="section-tag">Who We Are</span>
+          <h2 class="section-heading">Your On-The-Ground<br/>DMC Partner</h2>
+          <p class="section-subtext">
+            We take care of every complex logistical detail so you and your clients enjoy peace of mind. From airport transfers and flight tracking to multi-day corporate incentives, our local teams deliver excellence.
+          </p>
+          <div class="about-list">
+            <div class="about-item">
+              <div class="about-icon">✈️</div>
+              <div class="about-info">
+                <h4>Airport & Transfer Management</h4>
+                <p>Live aviation tracking with automatic pickup rescheduling for delayed flights.</p>
+              </div>
+            </div>
+            <div class="about-item">
+              <div class="about-icon">🏨</div>
+              <div class="about-info">
+                <h4>Hotel & Preferred Supplier Network</h4>
+                <p>Pre-negotiated tariffs, guaranteed allocations, and TOMS VAT compliance.</p>
+              </div>
+            </div>
+            <div class="about-item">
+              <div class="about-icon">📱</div>
+              <div class="about-info">
+                <h4>Mobile Itinerary & Live Dashboard</h4>
+                <p>VIP guest portal with real-time countdown, WhatsApp support & digital vouchers.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="about-visual-card">
+            <div class="visual-title">Live Operations Engine</div>
+            <div class="visual-subtitle">Real-time ground control for your events</div>
+            <div class="metric-row"><span class="metric-name">Active Programmes</span><span class="metric-val">12 Live</span></div>
+            <div class="metric-row"><span class="metric-name">Guests In-Destination</span><span class="metric-val">248 Pax</span></div>
+            <div class="metric-row"><span class="metric-name">Supplier Confirmation</span><span class="metric-val">100% Verified</span></div>
+            <div class="metric-row"><span class="metric-name">Flight Monitoring</span><span class="metric-val">Radar 24/7</span></div>
+            <div class="metric-row"><span class="metric-name">Response SLA</span><span class="metric-val">&lt; 2 Hours</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESTINATIONS SHOWCASE WITH PHOTO SLIDESHOW & FLAGS -->
+  <section class="destinations-section" id="destinations">
+    <div class="section-inner">
+      <div class="header-center">
+        <span class="section-tag">Where We Operate</span>
+        <h2 class="section-heading">Our 4 Key Destinations</h2>
+        <p class="section-subtext">Deep-rooted local partnerships and ground staff across four iconic global regions.</p>
+      </div>
+
+      <div class="destinations-grid">
+        <!-- MOZAMBIQUE CARD -->
+        <div class="dest-card-full" id="dest-card-0">
+          <div class="dest-slideshow">
+            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80" class="dest-slide active" alt="Mozambique Ocean Resort"/>
+            <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800&q=80" class="dest-slide" alt="Mozambique Marine Safari"/>
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="dest-slide" alt="Benguerra Island Beach"/>
+          </div>
+          <div class="dest-gradient-overlay"></div>
+          
+          <div class="slider-dots">
+            <span class="slider-dot active" onclick="goToSlide(0, 0)"></span>
+            <span class="slider-dot" onclick="goToSlide(0, 1)"></span>
+            <span class="slider-dot" onclick="goToSlide(0, 2)"></span>
+          </div>
+
+          <div class="slider-nav">
+            <button class="slider-btn" onclick="prevSlide(0)" title="Previous Image">‹</button>
+            <button class="slider-btn" onclick="nextSlide(0)" title="Next Image">›</button>
+          </div>
+
+          <div class="dest-details">
+            <div class="dest-flag-name">
+              <img src="https://flagcdn.com/w80/mz.png" class="flag-badge" alt="Mozambique Flag" title="Mozambique"/>
+              <h3 class="dest-h3">Mozambique</h3>
+            </div>
+            <p class="dest-text">Pristine Indian Ocean coastlines, Benguerra island resorts, and tailor-made wilderness safaris.</p>
+            <div class="dest-pill-group">
+              <span class="dest-pill">Island Resorts</span>
+              <span class="dest-pill">Marine Safaris</span>
+              <span class="dest-pill">VIP Leisure</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARIBBEAN CARD -->
+        <div class="dest-card-full" id="dest-card-1">
+          <div class="dest-slideshow">
+            <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=800&q=80" class="dest-slide active" alt="Caribbean Turquoise Waters"/>
+            <img src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=800&q=80" class="dest-slide" alt="Caribbean Yacht Charter"/>
+            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" class="dest-slide" alt="Caribbean Villa Estate"/>
+          </div>
+          <div class="dest-gradient-overlay"></div>
+          
+          <div class="slider-dots">
+            <span class="slider-dot active" onclick="goToSlide(1, 0)"></span>
+            <span class="slider-dot" onclick="goToSlide(1, 1)"></span>
+            <span class="slider-dot" onclick="goToSlide(1, 2)"></span>
+          </div>
+
+          <div class="slider-nav">
+            <button class="slider-btn" onclick="prevSlide(1)" title="Previous Image">‹</button>
+            <button class="slider-btn" onclick="nextSlide(1)" title="Next Image">›</button>
+          </div>
+
+          <div class="dest-details">
+            <div class="dest-flag-name">
+              <img src="https://flagcdn.com/w80/bs.png" class="flag-badge" alt="Bahamas Flag" title="Bahamas / Caribbean"/>
+              <img src="https://flagcdn.com/w80/bb.png" class="flag-badge" alt="Barbados Flag" title="Barbados / Caribbean"/>
+              <h3 class="dest-h3">Caribbean</h3>
+            </div>
+            <p class="dest-text">Turquoise waters, private villa estates, megayacht charters, and vibrant Caribbean culture.</p>
+            <div class="dest-pill-group">
+              <span class="dest-pill">Yacht Charters</span>
+              <span class="dest-pill">Private Villas</span>
+              <span class="dest-pill">Island Escapes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- HOLLAND CARD -->
+        <div class="dest-card-full" id="dest-card-2">
+          <div class="dest-slideshow">
+            <img src="https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?auto=format&fit=crop&w=800&q=80" class="dest-slide active" alt="Amsterdam Canals"/>
+            <img src="https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80" class="dest-slide" alt="Holland Tulip Fields"/>
+            <img src="https://images.unsplash.com/photo-1534351590666-13e3e96b5017?auto=format&fit=crop&w=800&q=80" class="dest-slide" alt="Holland Windmills"/>
+          </div>
+          <div class="dest-gradient-overlay"></div>
+          
+          <div class="slider-dots">
+            <span class="slider-dot active" onclick="goToSlide(2, 0)"></span>
+            <span class="slider-dot" onclick="goToSlide(2, 1)"></span>
+            <span class="slider-dot" onclick="goToSlide(2, 2)"></span>
+          </div>
+
+          <div class="slider-nav">
+            <button class="slider-btn" onclick="prevSlide(2)" title="Previous Image">‹</button>
+            <button class="slider-btn" onclick="nextSlide(2)" title="Next Image">›</button>
+          </div>
+
+          <div class="dest-details">
+            <div class="dest-flag-name">
+              <img src="https://flagcdn.com/w80/nl.png" class="flag-badge" alt="Netherlands Flag" title="Netherlands / Holland"/>
+              <h3 class="dest-h3">Holland</h3>
+            </div>
+            <p class="dest-text">Amsterdam canal cruises, private museum viewings, tulip season MICE, and top corporate venues.</p>
+            <div class="dest-pill-group">
+              <span class="dest-pill">Corporate MICE</span>
+              <span class="dest-pill">Canal Cruises</span>
+              <span class="dest-pill">Culture</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- USA CARD -->
+        <div class="dest-card-full" id="dest-card-3">
+          <div class="dest-slideshow">
+            <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=800&q=80" class="dest-slide active" alt="NYC Skyline"/>
+            <img src="https://images.unsplash.com/photo-1506968605470-388d01198533?auto=format&fit=crop&w=800&q=80" class="dest-slide" alt="Miami Beach Palms"/>
+            <img src="https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=800&q=80" class="dest-slide" alt="USA Grand Canyon"/>
+          </div>
+          <div class="dest-gradient-overlay"></div>
+          
+          <div class="slider-dots">
+            <span class="slider-dot active" onclick="goToSlide(3, 0)"></span>
+            <span class="slider-dot" onclick="goToSlide(3, 1)"></span>
+            <span class="slider-dot" onclick="goToSlide(3, 2)"></span>
+          </div>
+
+          <div class="slider-nav">
+            <button class="slider-btn" onclick="prevSlide(3)" title="Previous Image">‹</button>
+            <button class="slider-btn" onclick="nextSlide(3)" title="Next Image">›</button>
+          </div>
+
+          <div class="dest-details">
+            <div class="dest-flag-name">
+              <img src="https://flagcdn.com/w80/us.png" class="flag-badge" alt="USA Flag" title="United States of America"/>
+              <h3 class="dest-h3">USA</h3>
+            </div>
+            <p class="dest-text">From Manhattan galas and Miami beach clubs to Las Vegas convention summits and national parks.</p>
+            <div class="dest-pill-group">
+              <span class="dest-pill">Incentive Trips</span>
+              <span class="dest-pill">City Galas</span>
+              <span class="dest-pill">Conferences</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services-section" id="services">
+    <div class="section-inner">
+      <div class="header-center">
+        <span class="section-tag">What We Do</span>
+        <h2 class="section-heading">Comprehensive DMC Services</h2>
+        <p class="section-subtext">Tailored solutions designed for travel agencies, corporate planners, and VIP private clients.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card"><div class="service-icon-box">✈️</div><h3>Airport Transfers & Logistics</h3><p>Flight radar monitoring, VIP tarmac meet & greet, luxury sprinter fleet, and zero-stress delay rescheduling.</p><a href="#contact" class="service-link">Request Proposal →</a></div>
+        <div class="service-card"><div class="service-icon-box">🎯</div><h3>Corporate Incentive Trips</h3><p>High-impact reward programmes that inspire teams. Teambuilding, gala dinners, and complete ground logistics.</p><a href="#contact" class="service-link">Request Proposal →</a></div>
+        <div class="service-card"><div class="service-icon-box">🏖️</div><h3>Luxury VIP Travel</h3><p>Bespoke itineraries for high-net-worth travellers. Helicopter transfers, private island buyouts, and 24/7 concierge.</p><a href="#contact" class="service-link">Request Proposal →</a></div>
+        <div class="service-card"><div class="service-icon-box">🎪</div><h3>Conferences & MICE</h3><p>End-to-end conference management, venue sourcing, AV production, catering buyouts, and delegate registration.</p><a href="#contact" class="service-link">Request Proposal →</a></div>
+        <div class="service-card"><div class="service-icon-box">🌿</div><h3>Custom Excursions</h3><p>Curated local experiences: private marine safaris, wine masterclasses, yacht charters, and cultural tours.</p><a href="#contact" class="service-link">Request Proposal →</a></div>
+        <div class="service-card"><div class="service-icon-box">💳</div><h3>Multi-Currency Payments & VAT</h3><p>Transparent pricing, Stripe online deposit links, multi-currency hedging, and EU TOMS VAT compliance.</p><a href="#contact" class="service-link">Request Proposal →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="why-section">
+    <div class="section-inner">
+      <div class="header-center">
+        <span class="section-tag" style="color: var(--blue-cyan);">Why Choose Us</span>
+        <h2 class="section-heading" style="color: var(--white);">The Donkey Destinations Edge</h2>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card"><div class="why-num">4</div><div class="why-title">Core Regions</div><div class="why-text">Direct local teams in Mozambique, Caribbean, Holland & USA.</div></div>
+        <div class="why-card"><div class="why-num">24/7</div><div class="why-title">Ground Operations</div><div class="why-text">Round-the-clock emergency support and live flight monitoring.</div></div>
+        <div class="why-card"><div class="why-num">98%</div><div class="why-title">Client Retention</div><div class="why-text">Trusted by leading international travel agencies and enterprises.</div></div>
+        <div class="why-card"><div class="why-num">500+</div><div class="why-title">Events Executed</div><div class="why-text">From executive retreats of 10 to major conventions of 500+ pax.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="section-inner">
+      <div class="header-center">
+        <span class="section-tag">Client Feedback</span>
+        <h2 class="section-heading">Trusted by Planners Worldwide</h2>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div><div class="stars">★★★★★</div><p class="testimonial-text">"Donkey Destinations managed our annual incentive group to Mozambique flawlessly. Every detail was spot on — from airport transfers to the private island beach setup."</p></div>
+          <div class="client-profile"><div class="client-avatar">SM</div><div><div class="client-name">Sarah Jenkins</div><div class="client-role">Corporate Events Director, UK</div></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div><div class="stars">★★★★★</div><p class="testimonial-text">"When our flight to Amsterdam was delayed by 3 hours, their team had already updated all driver schedules before we landed. That level of proactiveness is rare."</p></div>
+          <div class="client-profile"><div class="client-avatar">JT</div><div><div class="client-name">James Turner</div><div class="client-role">Managing Director, USA</div></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div><div class="stars">★★★★★</div><p class="testimonial-text">"Our Caribbean incentive for 120 delegates was executed beyond expectations. The mobile guest itinerary portal was a huge hit with our executives!"</p></div>
+          <div class="client-profile"><div class="client-avatar">AB</div><div><div class="client-name">Annika Berg</div><div class="client-role">Head of Rewards, Netherlands</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div>
+          <span class="section-tag">Get In Touch</span>
+          <h2 class="section-heading">Let's Plan Your<br/>Next Programme</h2>
+          <p class="section-subtext">Fill out the form to request a custom proposal or schedule a consultation with our destination specialists.</p>
+          <div class="contact-info-list">
+            <div class="contact-info-item"><div class="contact-info-icon">📍</div><span><strong>Destinations:</strong> Mozambique, Caribbean, Holland & USA</span></div>
+            <div class="contact-info-item"><div class="contact-info-icon">✉️</div><span><strong>Email:</strong> enquiries@donkeydestinations.com</span></div>
+            <div class="contact-info-item"><div class="contact-info-icon">💬</div><span><strong>WhatsApp:</strong> 24/7 On-Call Operations Line</span></div>
+            <div class="contact-info-item"><div class="contact-info-icon">⏱️</div><span><strong>Proposal SLA:</strong> Turnaround within 48 Hours</span></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="form-card">
+            <div id="form-container">
+              <h3>Request a Tailored Proposal</h3>
+              <p class="form-sub">Please provide your group details below.</p>
+              
+              <form id="proposal-form" onsubmit="handleFormSubmit(event)">
+                <div class="form-row">
+                  <div class="form-group"><label>First Name *</label><input type="text" required placeholder="John" /></div>
+                  <div class="form-group"><label>Last Name *</label><input type="text" required placeholder="Smith" /></div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group"><label>Work Email *</label><input type="email" required placeholder="john@company.com" /></div>
+                  <div class="form-group"><label>Phone / WhatsApp</label><input type="tel" placeholder="+1 (555) 000-0000" /></div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Target Destination *</label>
+                    <select required>
+                      <option value="">Select destination...</option>
+                      <option value="Mozambique">Mozambique</option>
+                      <option value="Caribbean">Caribbean</option>
+                      <option value="Holland">Holland</option>
+                      <option value="USA">USA</option>
+                      <option value="Multiple">Multiple Destinations</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Group Size</label>
+                    <select>
+                      <option value="">Select pax size...</option>
+                      <option value="1-10">1–10 Pax (VIP / Leisure)</option>
+                      <option value="10-50">10–50 Pax</option>
+                      <option value="50-150">50–150 Pax</option>
+                      <option value="150+">150+ Pax (Conference)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Travel Category</label>
+                    <select>
+                      <option value="">Select category...</option>
+                      <option value="Luxury Leisure">Luxury Leisure</option>
+                      <option value="Corporate Incentive">Corporate Incentive</option>
+                      <option value="Conference MICE">Conference / MICE</option>
+                      <option value="Wedding Event">Wedding & Private Event</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Approximate Travel Dates</label>
+                    <input type="text" placeholder="e.g. Q2 2027 / March 2027" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Programme Details & Requirements</label>
+                  <textarea placeholder="Share any special requests, preferred hotel styles, or activities..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Submit Proposal Request →</button>
+              </form>
+            </div>
+
+            <div class="form-success-message" id="form-success">
+              <div class="success-icon">✅</div>
+              <h3>Proposal Request Received!</h3>
+              <p>Thank you for reaching out to Donkey Destinations. Our senior destination team will review your requirements and deliver a customized proposal within 48 hours.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-main">Donkey Destinations</div>
+          <div class="logo-sub">Destination Management Company</div>
+          <p>Your premier DMC partner operating in Mozambique, the Caribbean, Holland, and the USA. Dedicated to flawless ground execution and luxury experiences.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Destinations</h5>
+          <ul>
+            <li><a href="#destinations">Mozambique</a></li>
+            <li><a href="#destinations">Caribbean</a></li>
+            <li><a href="#destinations">Holland</a></li>
+            <li><a href="#destinations">USA</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="#services">Airport Transfers</a></li>
+            <li><a href="#services">Corporate Incentives</a></li>
+            <li><a href="#services">Luxury VIP Travel</a></li>
+            <li><a href="#services">Conferences & MICE</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Operations</h5>
+          <ul>
+            <li><a href="/dashboard.html">Command Dashboard</a></li>
+            <li><a href="/itinerary_portal.html">Guest Portal</a></li>
+            <li><a href="#about">About Donkey DMC</a></li>
+            <li><a href="#contact">Request Proposal</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Donkey Destinations DMC. All rights reserved.</span>
+        <span>✦ Interactive Destination Photo Slideshows & Flags</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // SLIDESHOW LOGIC
+    const cardSlideIndices = [0, 0, 0, 0];
+
+    function updateSlideshow(cardIndex) {
+      const card = document.getElementById('dest-card-' + cardIndex);
+      if (!card) return;
+      const slides = card.querySelectorAll('.dest-slide');
+      const dots = card.querySelectorAll('.slider-dot');
+      const currentIndex = cardSlideIndices[cardIndex];
+
+      slides.forEach((slide, i) => {
+        if (i === currentIndex) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      dots.forEach((dot, i) => {
+        if (i === currentIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+
+    function nextSlide(cardIndex) {
+      const card = document.getElementById('dest-card-' + cardIndex);
+      const slides = card.querySelectorAll('.dest-slide');
+      cardSlideIndices[cardIndex] = (cardSlideIndices[cardIndex] + 1) % slides.length;
+      updateSlideshow(cardIndex);
+    }
+
+    function prevSlide(cardIndex) {
+      const card = document.getElementById('dest-card-' + cardIndex);
+      const slides = card.querySelectorAll('.dest-slide');
+      cardSlideIndices[cardIndex] = (cardSlideIndices[cardIndex] - 1 + slides.length) % slides.length;
+      updateSlideshow(cardIndex);
+    }
+
+    function goToSlide(cardIndex, slideIndex) {
+      cardSlideIndices[cardIndex] = slideIndex;
+      updateSlideshow(cardIndex);
+    }
+
+    // Auto cycle slideshows every 4.5 seconds with staggered start
+    setInterval(() => {
+      [0, 1, 2, 3].forEach((idx) => {
+        setTimeout(() => {
+          nextSlide(idx);
+        }, idx * 600);
+      });
+    }, 5500);
+
+    // FORM SUBMIT
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      document.getElementById('form-container').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+      if (window.location.protocol.startsWith('http')) {
+        const payload = {
+          client_name: e.target.querySelector('input[type=text]').value,
+          destination: e.target.querySelector('select').value,
+          source: 'landing_page'
+        };
+        fetch('/api/inquiries', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).catch(() => {});
+      }
+    }
+
+    function toggleMenu() {
+      const links = document.querySelector('.nav-links');
+      if (links.style.display === 'flex') {
+        links.style.display = 'none';
+      } else {
+        links.style.cssText = 'display:flex; flex-direction:column; position:fixed; top:80px; left:0; right:0; background:var(--blue-midnight); padding:2rem; gap:1.5rem; z-index:999;';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -53,7 +53,10 @@ class DMCRequestHandler(http.server.SimpleHTTPRequestHandler):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
 
-        if path == '/api/kpis':
+        if path in ('/', '/index.html', '/landing', '/landing.html'):
+            self.path = '/landing.html'
+            super().do_GET()
+        elif path == '/api/kpis':
             self.handle_get_kpis()
         elif path == '/api/inquiries':
             self.handle_get_inquiries()
