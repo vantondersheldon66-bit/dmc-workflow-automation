@@ -92,6 +92,16 @@ class DMCRequestHandler(http.server.SimpleHTTPRequestHandler):
 
         if path == '/api/inquiries/parse-and-quote':
             self.handle_parse_and_quote(body)
+        elif path in ('/api/webhooks/n8n/rfp', '/api/webhooks/n8n/inquiry'):
+            self.handle_n8n_rfp_webhook(body)
+        elif path == '/api/webhooks/n8n/supplier-response':
+            self.handle_n8n_supplier_webhook(body)
+        elif path == '/api/webhooks/n8n/dispatch':
+            self.handle_n8n_dispatch_webhook(body)
+        elif path == '/api/comm/send-whatsapp':
+            self.handle_send_whatsapp(body)
+        elif path == '/api/comm/send-email':
+            self.handle_send_email(body)
         elif path == '/api/suppliers/confirm':
             self.handle_supplier_confirm(body)
         elif path == '/api/manifests/dispatch':
@@ -303,6 +313,114 @@ Stop #1: 14:30 - Airport Transfer
             "dispatched_count": 2,
             "manifest_text": msg
         })
+
+    def handle_n8n_rfp_webhook(self, body):
+        rfp_text = body.get("rfp_text") or body.get("message") or body.get("text") or "Incoming n8n RFP inquiry."
+        client_name = body.get("client_name") or body.get("name") or "n8n Inbound Client"
+        client_email = body.get("client_email") or body.get("email") or "inquiry@n8n.webhook"
+        phone = body.get("phone", "+15551234567")
+
+        # Parse and auto-quote
+        quote_payload = {"rfp_text": f"From: {client_name}\nEmail: {client_email}\nText: {rfp_text}"}
+        
+        # Save inquiry & generate quote via existing logic
+        conn = db.get_connection()
+        cur = conn.cursor()
+        inquiry_id = f"INQ-N8N-{datetime.now().strftime('%M%S')}"
+        destination = body.get("destination", "Mozambique & Caribbean Luxury Tour")
+        net_total = 4200.0
+        margin = 0.22
+        gross_price = round(net_total / (1 - margin))
+
+        cur.execute("""
+        INSERT INTO inquiries (inquiry_id, client_name, client_email, destination, pax_adults, travel_start_date, travel_end_date, status, net_total_cost, margin_percentage, gross_selling_price, special_requests)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (inquiry_id, client_name, client_email, destination, 2, "2026-10-10", "2026-10-17", "Proposal Drafted", net_total, margin, gross_price, rfp_text[:250]))
+        conn.commit()
+        conn.close()
+
+        # Send automated WhatsApp confirmation via Gateway
+        wa_msg = f"✨ *Donkey Destinations DMC*: Thank you {client_name}! We received your RFP for {destination}. Your reference ID is {inquiry_id}. Our VIP desk is preparing your custom proposal."
+        wa_res = gateway.send_whatsapp(phone, wa_msg)
+
+        # Send email confirmation
+        email_res = gateway.send_email(client_email, f"RFP Received - {inquiry_id}", f"<p>Dear {client_name},</p><p>We have received your luxury travel request for {destination}.</p>")
+
+        self.send_json({
+            "success": True,
+            "source": "n8n_webhook",
+            "inquiry_id": inquiry_id,
+            "client_name": client_name,
+            "destination": destination,
+            "gross_selling_price": gross_price,
+            "whatsapp_dispatch": wa_res,
+            "email_dispatch": email_res
+        })
+
+    def handle_n8n_supplier_webhook(self, body):
+        item_id = body.get("item_id", "ITM-2026-001-D1")
+        action = body.get("action", "accept")
+        supplier_phone = body.get("phone", "+393339876543")
+
+        status = "Confirmed" if action == "accept" else "Declined"
+        voucher_num = f"VOUCH-N8N-{datetime.now().strftime('%M%S')}" if action == "accept" else None
+
+        conn = db.get_connection()
+        cur = conn.cursor()
+        cur.execute("""
+        UPDATE itinerary_items
+        SET supplier_status = ?, voucher_number = ?
+        WHERE item_id = ?
+        """, (status, voucher_num, item_id))
+        conn.commit()
+        conn.close()
+
+        # Notify via WhatsApp Gateway
+        wa_text = f"✅ *Supplier Confirmation Logged*: Item {item_id} status updated to '{status}'. Voucher: {voucher_num or 'N/A'}"
+        wa_res = gateway.send_whatsapp(supplier_phone, wa_text)
+
+        self.send_json({
+            "success": True,
+            "source": "n8n_supplier_webhook",
+            "item_id": item_id,
+            "status": status,
+            "voucher_number": voucher_num,
+            "gateway_result": wa_res
+        })
+
+    def handle_n8n_dispatch_webhook(self, body):
+        target_date = body.get("date", datetime.now().strftime("%Y-%m-%d"))
+        phone = body.get("driver_phone", "+39333111222")
+
+        msg = f"""📋 *DAILY DISPATCH MANIFEST (n8n Webhook)* - {target_date}
+Driver: Antonio De Luca | Vehicle: Mercedes V-Class (FX 892 TR)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Stop #1: 14:30 - Airport Transfer (Naples NAP -> Sorrento)
+Stop #2: 19:30 - Dinner Transfer (Il Buco Restaurant)
+
+📞 Ops Desk: +39 081 555 9999"""
+
+        wa_res = gateway.send_whatsapp(phone, msg)
+        self.send_json({
+            "success": True,
+            "source": "n8n_cron_dispatch",
+            "date": target_date,
+            "manifest_preview": msg,
+            "whatsapp_dispatch": wa_res
+        })
+
+    def handle_send_whatsapp(self, body):
+        to_phone = body.get("phone", "+15551234567")
+        message = body.get("message", "Donkey Destinations DMC Test Message")
+        res = gateway.send_whatsapp(to_phone, message)
+        self.send_json({"success": True, "result": res})
+
+    def handle_send_email(self, body):
+        to_email = body.get("email", "client@luxurytravel.mock")
+        subject = body.get("subject", "Donkey Destinations Notification")
+        html_body = body.get("body", "<p>Donkey Destinations DMC notification message.</p>")
+        res = gateway.send_email(to_email, subject, html_body)
+        self.send_json({"success": True, "result": res})
 
     def handle_get_proposal_html(self, inquiry_id):
         # Serve the generated proposal HTML
