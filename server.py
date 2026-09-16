@@ -68,6 +68,8 @@ class DMCRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.handle_get_inquiries()
         elif path == '/api/tariffs':
             self.handle_get_tariffs()
+        elif path == '/api/pricing/rates':
+            self.send_json({"spot_rates": fx_vat_engine.spot_rates, "fx_buffer": "2.5%", "vat_rate": "22.0%"})
         elif path == '/api/suppliers/items':
             self.handle_get_supplier_items()
         elif path.startswith('/api/proposals/'):

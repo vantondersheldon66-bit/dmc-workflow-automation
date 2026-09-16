@@ -590,6 +590,102 @@
           </div>
 
         </div>
+
+        <!-- Row 2: Multi-Currency FX Engine & TOMS VAT Margin Calculator -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6 border-t border-slate-200 pt-6">
+          
+          <!-- FX Converter Box -->
+          <div class="lg:col-span-6 bg-white p-5 rounded-xl border border-slate-200 space-y-4 shadow-sm">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-slate-800 flex items-center space-x-2">
+                <span>💱</span> <span>Multi-Currency FX Engine (2.5% Volatility Buffer)</span>
+              </h3>
+              <span class="text-xs bg-emerald-100 text-emerald-800 font-mono font-semibold px-2 py-0.5 rounded">Live Spot Feed</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Base EUR Amount (€)</label>
+                <input type="number" id="fx-eur-input" value="4500" oninput="calculateFx()" class="w-full p-2 border border-slate-300 rounded-md font-mono text-slate-800 font-bold">
+              </div>
+
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Target Currency</label>
+                <select id="fx-curr-select" onchange="calculateFx()" class="w-full p-2 border border-slate-300 rounded-md text-slate-800 font-medium">
+                  <option value="USD">🇺🇸 USD (US Dollar) - 1.08</option>
+                  <option value="GBP">🇬🇧 GBP (British Pound) - 0.85</option>
+                  <option value="CHF">🇨🇭 CHF (Swiss Franc) - 0.96</option>
+                  <option value="AUD">🇦🇺 AUD (Australian $) - 1.62</option>
+                  <option value="MZN">🇲🇿 MZN (Mozambique Metical) - 69.50</option>
+                  <option value="ZAR">🇿🇦 ZAR (South Africa Rand) - 19.80</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-2 text-xs text-slate-600">
+              <input type="checkbox" id="fx-buffer-chk" checked onchange="calculateFx()" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+              <label for="fx-buffer-chk" class="font-medium cursor-pointer">Apply 2.5% FX risk buffer (protects against exchange depreciation)</label>
+            </div>
+
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 font-mono text-xs">
+              <div class="flex justify-between text-slate-500">
+                <span>Spot Exchange Rate:</span>
+                <span id="fx-spot-rate" class="font-bold text-slate-700">1 EUR = 1.0800 USD</span>
+              </div>
+              <div class="flex justify-between text-slate-500">
+                <span>Effective Protected Rate:</span>
+                <span id="fx-effective-rate" class="font-bold text-slate-700">1 EUR = 1.0530 USD (-2.5%)</span>
+              </div>
+              <div class="flex justify-between text-slate-800 text-sm font-bold border-t border-slate-200 pt-2">
+                <span>Converted Quoted Amount:</span>
+                <span id="fx-result-amount" class="text-blue-700">$4,738.50 USD</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- EU TOMS VAT Calculator Box -->
+          <div class="lg:col-span-6 bg-white p-5 rounded-xl border border-slate-200 space-y-4 shadow-sm">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-slate-800 flex items-center space-x-2">
+                <span>🏛️</span> <span>EU TOMS VAT Margin Scheme (Art. 74-ter)</span>
+              </h3>
+              <span class="text-xs bg-amber-100 text-amber-800 font-mono font-semibold px-2 py-0.5 rounded">22% Tax on Margin</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Net Supplier Cost (€)</label>
+                <input type="number" id="vat-net-input" value="3510" oninput="calculateVat()" class="w-full p-2 border border-slate-300 rounded-md font-mono text-slate-800">
+              </div>
+
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Gross Selling Price (€)</label>
+                <input type="number" id="vat-gross-input" value="4500" oninput="calculateVat()" class="w-full p-2 border border-slate-300 rounded-md font-mono text-slate-800 font-bold">
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-2 text-xs text-slate-600">
+              <input type="checkbox" id="vat-eu-chk" checked onchange="calculateVat()" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+              <label for="vat-eu-chk" class="font-medium cursor-pointer">EU Ground Service (Applies Art. 74-ter margin VAT calculation)</label>
+            </div>
+
+            <div class="bg-amber-50/60 p-4 rounded-xl border border-amber-200 space-y-2 font-mono text-xs">
+              <div class="flex justify-between text-slate-600">
+                <span>Gross Margin (€):</span>
+                <span id="vat-margin-amount" class="font-bold text-slate-800">€990.00 (22.0%)</span>
+              </div>
+              <div class="flex justify-between text-amber-900 font-semibold">
+                <span>VAT Due on Margin (22% Art. 74-ter):</span>
+                <span id="vat-tax-due" class="font-bold text-rose-700">€178.52</span>
+              </div>
+              <div class="flex justify-between text-emerald-900 text-sm font-bold border-t border-amber-200/80 pt-2">
+                <span>Net Retained Profit After Tax:</span>
+                <span id="vat-net-profit" class="text-emerald-700">€811.48 (18.0%)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
 
     </div>
@@ -1208,8 +1304,55 @@ Driver: Antonio De Luca | Vehicle: FX 892 TR<br>
       }
     }
 
+    // FX & VAT Engine JS Helpers
+    const spotRates = {
+      USD: { rate: 1.08, sym: '$' },
+      GBP: { rate: 0.85, sym: '£' },
+      CHF: { rate: 0.96, sym: 'CHF ' },
+      AUD: { rate: 1.62, sym: 'A$' },
+      MZN: { rate: 69.50, sym: 'MT ' },
+      ZAR: { rate: 19.80, sym: 'R ' }
+    };
+
+    function calculateFx() {
+      const eur = parseFloat(document.getElementById('fx-eur-input').value) || 0;
+      const curr = document.getElementById('fx-curr-select').value;
+      const useBuffer = document.getElementById('fx-buffer-chk').checked;
+
+      const obj = spotRates[curr] || { rate: 1.08, sym: '$' };
+      const spot = obj.rate;
+      const eff = useBuffer ? spot * 0.975 : spot;
+      const total = (eur * eff).toFixed(2);
+
+      document.getElementById('fx-spot-rate').innerText = `1 EUR = ${spot.toFixed(4)} ${curr}`;
+      document.getElementById('fx-effective-rate').innerText = `1 EUR = ${eff.toFixed(4)} ${curr} (${useBuffer ? '-2.5%' : '0%'})`;
+      document.getElementById('fx-result-amount').innerText = `${obj.sym}${parseFloat(total).toLocaleString()} ${curr}`;
+    }
+
+    function calculateVat() {
+      const net = parseFloat(document.getElementById('vat-net-input').value) || 0;
+      const gross = parseFloat(document.getElementById('vat-gross-input').value) || 0;
+      const isEu = document.getElementById('vat-eu-chk').checked;
+
+      const margin = gross - net;
+      const marginPct = gross > 0 ? ((margin / gross) * 100).toFixed(1) : 0;
+      
+      let vat = 0;
+      if (isEu && margin > 0) {
+        vat = margin * (0.22 / 1.22);
+      }
+      const netProfit = margin - vat;
+      const profitPct = gross > 0 ? ((netProfit / gross) * 100).toFixed(1) : 0;
+
+      document.getElementById('vat-margin-amount').innerText = `€${margin.toFixed(2)} (${marginPct}%)`;
+      document.getElementById('vat-tax-due').innerText = `€${vat.toFixed(2)}`;
+      document.getElementById('vat-net-profit').innerText = `€${netProfit.toFixed(2)} (${profitPct}%)`;
+    }
+
     // Initialize live data on page load
     loadLiveData();
+    calculateFx();
+    calculateVat();
   </script>
 </body>
 </html>

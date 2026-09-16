@@ -13,7 +13,9 @@ class FXandVATEngine:
             "USD": 1.08,    # 1 EUR = 1.08 USD
             "GBP": 0.85,    # 1 EUR = 0.85 GBP
             "CHF": 0.96,    # 1 EUR = 0.96 CHF
-            "AUD": 1.62     # 1 EUR = 1.62 AUD
+            "AUD": 1.62,    # 1 EUR = 1.62 AUD
+            "MZN": 69.50,   # 1 EUR = 69.50 MZN (Mozambique Metical)
+            "ZAR": 19.80    # 1 EUR = 19.80 ZAR (South Africa Rand)
         }
         # Volatility Buffer: 2.5% safety margin on foreign currency quotes
         self.fx_buffer = 0.025
