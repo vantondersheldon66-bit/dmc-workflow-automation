@@ -56,6 +56,12 @@ class DMCRequestHandler(http.server.SimpleHTTPRequestHandler):
         if path in ('/', '/index.html', '/landing', '/landing.html'):
             self.path = '/landing.html'
             super().do_GET()
+        elif path in ('/dashboard', '/dashboard/'):
+            self.path = '/dashboard.html'
+            super().do_GET()
+        elif path in ('/portal', '/portal/'):
+            self.path = '/itinerary_portal.html'
+            super().do_GET()
         elif path == '/api/kpis':
             self.handle_get_kpis()
         elif path == '/api/inquiries':
