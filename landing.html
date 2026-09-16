@@ -799,6 +799,224 @@
     </div>
   </section>
 
+  <!-- ===== ITINERARY BUILDER SECTION ===== -->
+  <section id="itinerary-builder" style="background:var(--blue-mist); padding: 100px 5%;">
+    <div style="max-width:1100px; margin:0 auto;">
+      
+      <!-- Section Header -->
+      <div style="text-align:center; margin-bottom:52px;">
+        <span style="display:inline-block; background:rgba(29,78,216,0.08); border:1px solid rgba(29,78,216,0.25); color:var(--blue-ocean); padding:6px 20px; border-radius:50px; font-size:0.75rem; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; margin-bottom:18px;">🗺️ Interactive Tool</span>
+        <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,3.5vw,2.9rem); font-weight:800; color:var(--blue-midnight); margin-bottom:14px;">Build Your Custom Multi-Destination Itinerary</h2>
+        <p style="font-size:1.05rem; color:var(--text-muted); max-width:560px; margin:0 auto; line-height:1.8;">Select destinations, services, and group size — we'll calculate an instant budget estimate and send it straight to your inbox.</p>
+      </div>
+
+      <!-- Builder Card -->
+      <div style="background:#fff; border-radius:22px; box-shadow:0 20px 60px rgba(15,30,70,0.1); overflow:hidden; border:1px solid rgba(29,78,216,0.1);">
+        
+        <!-- Progress Steps -->
+        <div style="background:linear-gradient(135deg,#0d2857,#1d4ed8); padding:22px 40px; display:flex; gap:0; overflow-x:auto;">
+          <div class="ib-step active" id="step-tab-1" onclick="ibStep(1)" style="flex:1; text-align:center; padding:10px 8px; border-radius:10px; background:rgba(255,255,255,0.15); cursor:pointer; min-width:140px; margin-right:8px;">
+            <div style="font-size:1.3rem;">🌍</div>
+            <div style="font-size:0.75rem; font-weight:700; color:#fff; margin-top:4px;">1. Destinations</div>
+          </div>
+          <div class="ib-step" id="step-tab-2" onclick="ibStep(2)" style="flex:1; text-align:center; padding:10px 8px; border-radius:10px; background:rgba(255,255,255,0.05); cursor:pointer; min-width:140px; margin-right:8px; opacity:0.6;">
+            <div style="font-size:1.3rem;">🛎️</div>
+            <div style="font-size:0.75rem; font-weight:700; color:#fff; margin-top:4px;">2. Services</div>
+          </div>
+          <div class="ib-step" id="step-tab-3" onclick="ibStep(3)" style="flex:1; text-align:center; padding:10px 8px; border-radius:10px; background:rgba(255,255,255,0.05); cursor:pointer; min-width:140px; margin-right:8px; opacity:0.6;">
+            <div style="font-size:1.3rem;">👥</div>
+            <div style="font-size:0.75rem; font-weight:700; color:#fff; margin-top:4px;">3. Group & Dates</div>
+          </div>
+          <div class="ib-step" id="step-tab-4" onclick="ibStep(4)" style="flex:1; text-align:center; padding:10px 8px; border-radius:10px; background:rgba(255,255,255,0.05); cursor:pointer; min-width:140px; opacity:0.6;">
+            <div style="font-size:1.3rem;">💶</div>
+            <div style="font-size:0.75rem; font-weight:700; color:#fff; margin-top:4px;">4. Budget Preview</div>
+          </div>
+        </div>
+
+        <div style="padding:40px;">
+
+          <!-- STEP 1: DESTINATIONS -->
+          <div id="ib-panel-1">
+            <h3 style="font-size:1.2rem; font-weight:800; color:var(--blue-midnight); margin-bottom:8px;">Select Your Destinations</h3>
+            <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:24px;">Choose one or more destinations — each adds unique pricing and services.</p>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px;">
+              <div class="dest-toggle" id="dt-mz" onclick="toggleDest('mz','Mozambique',2800)" style="border:2px solid #e2e8f0; border-radius:14px; padding:20px; cursor:pointer; transition:all 0.25s; position:relative; overflow:hidden;">
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+                  <img src="https://flagcdn.com/w80/mz.png" style="width:36px; height:27px; border-radius:4px; object-fit:cover;">
+                  <div>
+                    <div style="font-weight:800; color:var(--blue-midnight); font-size:1rem;">Mozambique</div>
+                    <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase; font-weight:600; letter-spacing:1px;">East Africa</div>
+                  </div>
+                </div>
+                <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Benguerra Island · Bazaruto · Praia do Tofo</div>
+                <div style="font-size:0.85rem; font-weight:700; color:var(--blue-ocean);">From €2,800 / pax</div>
+                <div class="dest-check" id="check-mz" style="display:none; position:absolute; top:12px; right:12px; background:#1d4ed8; color:#fff; width:22px; height:22px; border-radius:50%; display:none; align-items:center; justify-content:center; font-size:0.75rem;">✓</div>
+              </div>
+
+              <div class="dest-toggle" id="dt-cb" onclick="toggleDest('cb','Caribbean',3200)" style="border:2px solid #e2e8f0; border-radius:14px; padding:20px; cursor:pointer; transition:all 0.25s; position:relative; overflow:hidden;">
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+                  <img src="https://flagcdn.com/w80/bs.png" style="width:36px; height:27px; border-radius:4px; object-fit:cover;">
+                  <div>
+                    <div style="font-weight:800; color:var(--blue-midnight); font-size:1rem;">Caribbean</div>
+                    <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase; font-weight:600; letter-spacing:1px;">Island Experience</div>
+                  </div>
+                </div>
+                <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Turks & Caicos · St. Lucia · Bahamas</div>
+                <div style="font-size:0.85rem; font-weight:700; color:var(--blue-ocean);">From €3,200 / pax</div>
+                <div class="dest-check" id="check-cb" style="display:none; position:absolute; top:12px; right:12px; background:#1d4ed8; color:#fff; width:22px; height:22px; border-radius:50%; display:none; align-items:center; justify-content:center; font-size:0.75rem;">✓</div>
+              </div>
+
+              <div class="dest-toggle" id="dt-nl" onclick="toggleDest('nl','Holland',1800)" style="border:2px solid #e2e8f0; border-radius:14px; padding:20px; cursor:pointer; transition:all 0.25s; position:relative; overflow:hidden;">
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+                  <img src="https://flagcdn.com/w80/nl.png" style="width:36px; height:27px; border-radius:4px; object-fit:cover;">
+                  <div>
+                    <div style="font-weight:800; color:var(--blue-midnight); font-size:1rem;">Holland</div>
+                    <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase; font-weight:600; letter-spacing:1px;">Netherlands</div>
+                  </div>
+                </div>
+                <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Keukenhof · Amsterdam · Giethoorn</div>
+                <div style="font-size:0.85rem; font-weight:700; color:var(--blue-ocean);">From €1,800 / pax</div>
+                <div class="dest-check" id="check-nl" style="display:none; position:absolute; top:12px; right:12px; background:#1d4ed8; color:#fff; width:22px; height:22px; border-radius:50%; display:none; align-items:center; justify-content:center; font-size:0.75rem;">✓</div>
+              </div>
+
+              <div class="dest-toggle" id="dt-us" onclick="toggleDest('us','USA',2400)" style="border:2px solid #e2e8f0; border-radius:14px; padding:20px; cursor:pointer; transition:all 0.25s; position:relative; overflow:hidden;">
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+                  <img src="https://flagcdn.com/w80/us.png" style="width:36px; height:27px; border-radius:4px; object-fit:cover;">
+                  <div>
+                    <div style="font-weight:800; color:var(--blue-midnight); font-size:1rem;">USA</div>
+                    <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase; font-weight:600; letter-spacing:1px;">United States</div>
+                  </div>
+                </div>
+                <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Grand Canyon · Maui · New York City</div>
+                <div style="font-size:0.85rem; font-weight:700; color:var(--blue-ocean);">From €2,400 / pax</div>
+                <div class="dest-check" id="check-us" style="display:none; position:absolute; top:12px; right:12px; background:#1d4ed8; color:#fff; width:22px; height:22px; border-radius:50%; display:none; align-items:center; justify-content:center; font-size:0.75rem;">✓</div>
+              </div>
+            </div>
+            <div style="margin-top:24px; text-align:right;">
+              <button onclick="ibStep(2)" style="background:linear-gradient(135deg,#1d4ed8,#00d2ff); color:#fff; border:none; padding:13px 30px; border-radius:50px; font-weight:700; font-size:0.95rem; cursor:pointer; box-shadow:0 8px 24px rgba(0,210,255,0.3);">Next: Select Services →</button>
+            </div>
+          </div>
+
+          <!-- STEP 2: SERVICES -->
+          <div id="ib-panel-2" style="display:none;">
+            <h3 style="font-size:1.2rem; font-weight:800; color:var(--blue-midnight); margin-bottom:8px;">Select Your Services</h3>
+            <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:24px;">Add services to your itinerary — pricing is per person, per day.</p>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px;">
+              <label class="svc-card" style="display:flex; align-items:center; gap:12px; border:2px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; transition:all 0.2s;">
+                <input type="checkbox" id="svc-transfer" value="480" onchange="ibCalc()" style="width:18px; height:18px; accent-color:#1d4ed8;">
+                <div><div style="font-weight:700; color:var(--blue-midnight);">🚐 Airport Transfers</div><div style="font-size:0.78rem; color:var(--text-muted);">Mercedes V-Class</div><div style="font-size:0.82rem; font-weight:700; color:var(--blue-ocean); margin-top:4px;">+€480 / pax</div></div>
+              </label>
+              <label class="svc-card" style="display:flex; align-items:center; gap:12px; border:2px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; transition:all 0.2s;">
+                <input type="checkbox" id="svc-hotel" value="650" onchange="ibCalc()" style="width:18px; height:18px; accent-color:#1d4ed8;">
+                <div><div style="font-weight:700; color:var(--blue-midnight);">🏨 Luxury Hotel (5★)</div><div style="font-size:0.78rem; color:var(--text-muted);">3 Nights Sea View</div><div style="font-size:0.82rem; font-weight:700; color:var(--blue-ocean); margin-top:4px;">+€650 / pax</div></div>
+              </label>
+              <label class="svc-card" style="display:flex; align-items:center; gap:12px; border:2px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; transition:all 0.2s;">
+                <input type="checkbox" id="svc-yacht" value="890" onchange="ibCalc()" style="width:18px; height:18px; accent-color:#1d4ed8;">
+                <div><div style="font-weight:700; color:var(--blue-midnight);">⛵ Private Yacht Charter</div><div style="font-size:0.78rem; color:var(--text-muted);">Full Day Riva</div><div style="font-size:0.82rem; font-weight:700; color:var(--blue-ocean); margin-top:4px;">+€890 / pax</div></div>
+              </label>
+              <label class="svc-card" style="display:flex; align-items:center; gap:12px; border:2px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; transition:all 0.2s;">
+                <input type="checkbox" id="svc-guide" value="320" onchange="ibCalc()" style="width:18px; height:18px; accent-color:#1d4ed8;">
+                <div><div style="font-weight:700; color:var(--blue-midnight);">🏛️ Private VIP Guide</div><div style="font-size:0.78rem; color:var(--text-muted);">Expert Historian</div><div style="font-size:0.82rem; font-weight:700; color:var(--blue-ocean); margin-top:4px;">+€320 / pax</div></div>
+              </label>
+              <label class="svc-card" style="display:flex; align-items:center; gap:12px; border:2px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; transition:all 0.2s;">
+                <input type="checkbox" id="svc-dining" value="260" onchange="ibCalc()" style="width:18px; height:18px; accent-color:#1d4ed8;">
+                <div><div style="font-weight:700; color:var(--blue-midnight);">🍽️ Fine Dining Experiences</div><div style="font-size:0.78rem; color:var(--text-muted);">Curated Restaurant</div><div style="font-size:0.82rem; font-weight:700; color:var(--blue-ocean); margin-top:4px;">+€260 / pax</div></div>
+              </label>
+              <label class="svc-card" style="display:flex; align-items:center; gap:12px; border:2px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; transition:all 0.2s;">
+                <input type="checkbox" id="svc-spa" value="180" onchange="ibCalc()" style="width:18px; height:18px; accent-color:#1d4ed8;">
+                <div><div style="font-weight:700; color:var(--blue-midnight);">🧖 Luxury Spa Package</div><div style="font-size:0.78rem; color:var(--text-muted);">Half-Day Wellness</div><div style="font-size:0.82rem; font-weight:700; color:var(--blue-ocean); margin-top:4px;">+€180 / pax</div></div>
+              </label>
+            </div>
+            <div style="margin-top:24px; display:flex; justify-content:space-between;">
+              <button onclick="ibStep(1)" style="background:#f1f5f9; color:var(--blue-midnight); border:none; padding:13px 26px; border-radius:50px; font-weight:600; cursor:pointer;">← Back</button>
+              <button onclick="ibStep(3)" style="background:linear-gradient(135deg,#1d4ed8,#00d2ff); color:#fff; border:none; padding:13px 30px; border-radius:50px; font-weight:700; font-size:0.95rem; cursor:pointer; box-shadow:0 8px 24px rgba(0,210,255,0.3);">Next: Group & Dates →</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: GROUP & DATES -->
+          <div id="ib-panel-3" style="display:none;">
+            <h3 style="font-size:1.2rem; font-weight:800; color:var(--blue-midnight); margin-bottom:8px;">Group Size & Travel Dates</h3>
+            <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:24px;">Larger groups may qualify for volume pricing. Enter your details to tailor the estimate.</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+              <div>
+                <label style="display:block; font-weight:700; color:var(--blue-midnight); margin-bottom:8px; font-size:0.88rem;">Number of Guests (Pax)</label>
+                <input type="number" id="ib-pax" value="4" min="1" max="500" oninput="ibCalc()" style="width:100%; padding:12px 16px; border:2px solid #e2e8f0; border-radius:10px; font-size:1rem; font-weight:700; color:var(--blue-midnight); outline:none;">
+              </div>
+              <div>
+                <label style="display:block; font-weight:700; color:var(--blue-midnight); margin-bottom:8px; font-size:0.88rem;">Travel Duration (Days)</label>
+                <input type="number" id="ib-days" value="5" min="1" max="30" oninput="ibCalc()" style="width:100%; padding:12px 16px; border:2px solid #e2e8f0; border-radius:10px; font-size:1rem; font-weight:700; color:var(--blue-midnight); outline:none;">
+              </div>
+              <div>
+                <label style="display:block; font-weight:700; color:var(--blue-midnight); margin-bottom:8px; font-size:0.88rem;">Preferred Travel Month</label>
+                <select id="ib-month" style="width:100%; padding:12px 16px; border:2px solid #e2e8f0; border-radius:10px; font-size:0.95rem; font-weight:600; color:var(--blue-midnight); outline:none;">
+                  <option>January</option><option>February</option><option>March</option><option>April</option>
+                  <option>May</option><option>June</option><option>July</option><option>August</option>
+                  <option>September</option><option>October</option><option>November</option><option>December</option>
+                </select>
+              </div>
+              <div>
+                <label style="display:block; font-weight:700; color:var(--blue-midnight); margin-bottom:8px; font-size:0.88rem;">Service Tier</label>
+                <select id="ib-tier" onchange="ibCalc()" style="width:100%; padding:12px 16px; border:2px solid #e2e8f0; border-radius:10px; font-size:0.95rem; font-weight:600; color:var(--blue-midnight); outline:none;">
+                  <option value="1.0">Standard</option>
+                  <option value="1.25" selected>Luxury</option>
+                  <option value="1.6">Ultra VIP</option>
+                </select>
+              </div>
+            </div>
+            <div style="margin-top:24px; display:flex; justify-content:space-between;">
+              <button onclick="ibStep(2)" style="background:#f1f5f9; color:var(--blue-midnight); border:none; padding:13px 26px; border-radius:50px; font-weight:600; cursor:pointer;">← Back</button>
+              <button onclick="ibStep(4)" style="background:linear-gradient(135deg,#1d4ed8,#00d2ff); color:#fff; border:none; padding:13px 30px; border-radius:50px; font-weight:700; font-size:0.95rem; cursor:pointer; box-shadow:0 8px 24px rgba(0,210,255,0.3);">View Budget Estimate →</button>
+            </div>
+          </div>
+
+          <!-- STEP 4: BUDGET PREVIEW -->
+          <div id="ib-panel-4" style="display:none;">
+            <h3 style="font-size:1.2rem; font-weight:800; color:var(--blue-midnight); margin-bottom:6px;">Instant Budget Estimate</h3>
+            <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:28px;">Based on your selections — this is an indicative estimate. Final pricing is confirmed in your custom proposal.</p>
+            
+            <div style="background:linear-gradient(135deg,#0d2857,#1d4ed8); color:#fff; border-radius:18px; padding:36px; margin-bottom:24px;">
+              <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:24px; margin-bottom:28px;">
+                <div style="text-align:center;">
+                  <div style="font-size:0.72rem; color:rgba(255,255,255,0.6); text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-bottom:8px;">Destinations</div>
+                  <div style="font-size:1.4rem; font-weight:800;" id="ib-summary-dest">—</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-size:0.72rem; color:rgba(255,255,255,0.6); text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-bottom:8px;">Group Size</div>
+                  <div style="font-size:1.4rem; font-weight:800;" id="ib-summary-pax">—</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-size:0.72rem; color:rgba(255,255,255,0.6); text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-bottom:8px;">Duration</div>
+                  <div style="font-size:1.4rem; font-weight:800;" id="ib-summary-days">—</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-size:0.72rem; color:rgba(255,255,255,0.6); text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-bottom:8px;">Service Tier</div>
+                  <div style="font-size:1.4rem; font-weight:800;" id="ib-summary-tier">—</div>
+                </div>
+              </div>
+              <div style="border-top:1px solid rgba(255,255,255,0.15); padding-top:24px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;">
+                <div>
+                  <div style="font-size:0.78rem; color:rgba(255,255,255,0.55); text-transform:uppercase; letter-spacing:1px; font-weight:600;">Indicative Total Package Cost</div>
+                  <div style="font-size:3rem; font-weight:900; line-height:1; margin-top:6px;" id="ib-total">€0</div>
+                  <div style="font-size:0.78rem; color:rgba(0,210,255,0.8); margin-top:6px;" id="ib-per-pax">€0 per person</div>
+                </div>
+                <div style="font-size:0.8rem; color:rgba(255,255,255,0.45); max-width:220px; line-height:1.6;">Includes EU TOMS VAT & 2.5% FX volatility buffer. Final pricing subject to availability.</div>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:16px; flex-wrap:wrap;">
+              <button onclick="ibStep(3)" style="background:#f1f5f9; color:var(--blue-midnight); border:none; padding:13px 26px; border-radius:50px; font-weight:600; cursor:pointer; flex:1; min-width:140px;">← Adjust</button>
+              <button onclick="ibSendProposal()" style="background:linear-gradient(135deg,#059669,#34d399); color:#fff; border:none; padding:13px 30px; border-radius:50px; font-weight:700; font-size:0.95rem; cursor:pointer; box-shadow:0 8px 24px rgba(5,150,105,0.3); flex:2; min-width:220px;">📩 Request Full Proposal Package</button>
+            </div>
+            <div id="ib-success-msg" style="display:none; margin-top:20px; background:#f0fdf4; border:1px solid #86efac; border-radius:12px; padding:16px; text-align:center; color:#166534; font-weight:700;">
+              ✅ Proposal request submitted! Our team will send your custom itinerary within 48 hours.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
@@ -926,6 +1144,100 @@
       } else {
         links.style.cssText = 'display:flex; flex-direction:column; position:fixed; top:80px; left:0; right:0; background:var(--blue-midnight); padding:2rem; gap:1.5rem; z-index:999;';
       }
+    }
+
+    // ===== ITINERARY BUILDER LOGIC =====
+    const ibDests = {}; // { id: { name, base } }
+
+    function ibStep(n) {
+      [1,2,3,4].forEach(i => {
+        document.getElementById('ib-panel-' + i).style.display = i === n ? 'block' : 'none';
+        const tab = document.getElementById('step-tab-' + i);
+        if (i === n) {
+          tab.style.background = 'rgba(255,255,255,0.18)';
+          tab.style.opacity = '1';
+        } else {
+          tab.style.background = 'rgba(255,255,255,0.05)';
+          tab.style.opacity = i < n ? '1' : '0.5';
+        }
+      });
+      if (n === 4) ibCalc();
+    }
+
+    function toggleDest(id, name, base) {
+      const card = document.getElementById('dt-' + id);
+      const check = document.getElementById('check-' + id);
+      if (ibDests[id]) {
+        delete ibDests[id];
+        card.style.border = '2px solid #e2e8f0';
+        card.style.background = '#fff';
+        if (check) check.style.display = 'none';
+      } else {
+        ibDests[id] = { name, base };
+        card.style.border = '2px solid #1d4ed8';
+        card.style.background = 'rgba(29,78,216,0.04)';
+        if (check) check.style.display = 'flex';
+      }
+    }
+
+    function ibCalc() {
+      const pax = parseInt(document.getElementById('ib-pax')?.value) || 4;
+      const days = parseInt(document.getElementById('ib-days')?.value) || 5;
+      const tier = parseFloat(document.getElementById('ib-tier')?.value) || 1.25;
+
+      // Destination base cost (per pax)
+      const destBase = Object.values(ibDests).reduce((s, d) => s + d.base, 0);
+
+      // Services cost (per pax)
+      const svcIds = ['svc-transfer','svc-hotel','svc-yacht','svc-guide','svc-dining','svc-spa'];
+      const svcBase = svcIds.reduce((s, id) => {
+        const el = document.getElementById(id);
+        return el && el.checked ? s + parseInt(el.value) : s;
+      }, 0);
+
+      const netPerPax = (destBase + svcBase * days) * tier;
+      const totalNet = netPerPax * pax;
+      // Apply 22% TOMS VAT on margin (assume 22% margin)
+      const gross = Math.round(totalNet / 0.78);
+      const perPax = pax > 0 ? Math.round(gross / pax) : 0;
+
+      // Update summary panel
+      const destNames = Object.values(ibDests).map(d => d.name).join(', ') || '—';
+      const tierLabel = { '1.0':'Standard', '1.25':'Luxury', '1.6':'Ultra VIP' }[String(tier)] || 'Luxury';
+
+      const el = id => document.getElementById(id);
+      if (el('ib-summary-dest')) el('ib-summary-dest').innerText = destNames;
+      if (el('ib-summary-pax')) el('ib-summary-pax').innerText = pax + ' Pax';
+      if (el('ib-summary-days')) el('ib-summary-days').innerText = days + ' Days';
+      if (el('ib-summary-tier')) el('ib-summary-tier').innerText = tierLabel;
+      if (el('ib-total')) el('ib-total').innerText = '€' + gross.toLocaleString();
+      if (el('ib-per-pax')) el('ib-per-pax').innerText = '€' + perPax.toLocaleString() + ' per person (VAT incl.)';
+    }
+
+    function ibSendProposal() {
+      const destNames = Object.values(ibDests).map(d => d.name).join(', ') || 'Multiple Destinations';
+      const pax = document.getElementById('ib-pax')?.value || 4;
+      const days = document.getElementById('ib-days')?.value || 5;
+      const month = document.getElementById('ib-month')?.value || 'TBD';
+      const totalEl = document.getElementById('ib-total');
+      const total = totalEl ? totalEl.innerText : '€0';
+
+      const payload = {
+        rfp_text: `Itinerary Builder Submission: ${destNames} | ${pax} pax | ${days} days | ${month} | Estimated ${total}`,
+        client_name: 'Website Visitor',
+        destination: destNames,
+        source: 'itinerary_builder'
+      };
+
+      if (window.location.protocol.startsWith('http')) {
+        fetch('/api/webhooks/n8n/rfp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).catch(() => {});
+      }
+
+      document.getElementById('ib-success-msg').style.display = 'block';
     }
   </script>
 </body>
