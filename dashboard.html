@@ -105,6 +105,9 @@
         <button onclick="switchTab('tariffs')" id="tab-btn-tariffs" class="py-4 text-slate-500 hover:text-slate-800 transition-colors flex items-center space-x-2">
           <span>🏷️</span> <span>4. Contracted Tariffs & Catalog</span>
         </button>
+        <button onclick="switchTab('n8n')" id="tab-btn-n8n" class="py-4 text-slate-500 hover:text-slate-800 transition-colors flex items-center space-x-2">
+          <span>⚡</span> <span>5. n8n & WhatsApp Gateway</span>
+        </button>
       </div>
 
       <!-- ================= TAB 1: INQUIRIES & AI QUOTING ================= -->
@@ -480,6 +483,113 @@
             </tbody>
           </table>
         </div>
+      <!-- ================= TAB 5: N8N AUTOMATION & WHATSAPP GATEWAY ================= -->
+      <div id="tab-n8n" class="py-6 space-y-6 hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- Left Column: Interactive Webhook Trigger Panel -->
+          <div class="lg:col-span-6 space-y-4">
+            <div class="bg-slate-900 text-white p-5 rounded-xl border border-slate-800 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-amber-400 flex items-center space-x-2">
+                  <span>⚡</span> <span>n8n Webhook Test Bench</span>
+                </h3>
+                <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-0.5 rounded-full font-mono font-semibold">EndPoints Active</span>
+              </div>
+              
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Simulate live n8n workflow triggers. Webhooks execute real SQLite database mutations and dispatch notifications via the Communication Gateway.
+              </p>
+
+              <!-- Webhook Action 1: Inbound RFP -->
+              <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/80 space-y-2">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="font-bold text-white font-mono">POST /api/webhooks/n8n/rfp</span>
+                  <span class="text-slate-400">Inbound Inquiry Trigger</span>
+                </div>
+                <button onclick="triggerN8nRfp()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold py-2.5 rounded-lg transition flex items-center justify-center space-x-2 shadow">
+                  <span>📩</span> <span>Trigger Inbound n8n RFP (Mozambique & USA)</span>
+                </button>
+              </div>
+
+              <!-- Webhook Action 2: Supplier Confirmation -->
+              <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/80 space-y-2">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="font-bold text-white font-mono">POST /api/webhooks/n8n/supplier-response</span>
+                  <span class="text-slate-400">Supplier WhatsApp Reply</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="triggerN8nSupplier('accept')" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-2 rounded-lg transition flex items-center justify-center space-x-1 shadow">
+                    <span>✅</span> <span>Accept & Issue Voucher</span>
+                  </button>
+                  <button onclick="triggerN8nSupplier('decline')" class="bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold py-2 rounded-lg transition flex items-center justify-center space-x-1 shadow">
+                    <span>✕</span> <span>Decline Booking</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Webhook Action 3: Daily Dispatch Cron -->
+              <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/80 space-y-2">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="font-bold text-white font-mono">POST /api/webhooks/n8n/dispatch</span>
+                  <span class="text-slate-400">Morning Cron Manifest</span>
+                </div>
+                <button onclick="triggerN8nDispatch()" class="w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-2.5 rounded-lg transition flex items-center justify-center space-x-2 shadow">
+                  <span>📋</span> <span>Broadcast Daily Driver Manifest (WhatsApp)</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Right Column: Direct WhatsApp Gateway Sender -->
+          <div class="lg:col-span-6 space-y-4">
+            <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-4 shadow-sm">
+              <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-slate-800 flex items-center space-x-2">
+                  <span>💬</span> <span>Direct WhatsApp Gateway Dispatch</span>
+                </h3>
+                <span class="text-xs bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded">Twilio / Sim Active</span>
+              </div>
+
+              <div class="space-y-3 text-xs">
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Recipient Phone Number (WhatsApp)</label>
+                  <input type="text" id="wa-phone" value="+14155559988" class="w-full p-2 border border-slate-300 rounded-md font-mono text-slate-800">
+                </div>
+
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Quick Message Template</label>
+                  <select id="wa-select" onchange="applyWaTemplate(this.value)" class="w-full p-2 border border-slate-300 rounded-md text-slate-700 font-medium">
+                    <option value="welcome">✨ VIP Guest Welcome Message</option>
+                    <option value="delay">✈️ Flight Delay & Driver Reschedule</option>
+                    <option value="voucher">🎟️ Supplier Voucher Issued</option>
+                    <option value="custom">✏️ Custom Message</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">WhatsApp Body</label>
+                  <textarea id="wa-body" rows="4" class="w-full p-2.5 border border-slate-300 rounded-md font-mono text-slate-800 text-xs">✨ Donkey Destinations DMC: Welcome to your VIP experience! Your driver Antonio will meet you at arrivals with a name sign.</textarea>
+                </div>
+
+                <button onclick="sendDirectWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg transition flex items-center justify-center space-x-2 shadow">
+                  <span>📱</span> <span>Send WhatsApp Message via Gateway</span>
+                </button>
+              </div>
+
+              <!-- Output Console -->
+              <div class="mt-4 pt-4 border-t border-slate-200">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="text-xs font-bold uppercase text-slate-600 tracking-wider">Gateway Response Output</span>
+                  <button onclick="document.getElementById('n8n-console').innerText = 'Ready...'" class="text-[10px] text-slate-400 hover:text-slate-600">Clear</button>
+                </div>
+                <pre id="n8n-console" class="bg-slate-950 text-emerald-400 p-3 rounded-lg font-mono text-[11px] h-28 overflow-y-auto leading-tight">Ready for n8n triggers or WhatsApp dispatches...</pre>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
 
     </div>
@@ -549,7 +659,7 @@
 
     // Tab Switching
     function switchTab(tabId) {
-      ['inquiries', 'suppliers', 'dispatch', 'tariffs'].forEach(id => {
+      ['inquiries', 'suppliers', 'dispatch', 'tariffs', 'n8n'].forEach(id => {
         document.getElementById(`tab-${id}`).classList.add('hidden');
         document.getElementById(`tab-btn-${id}`).classList.remove('tab-active');
         document.getElementById(`tab-btn-${id}`).classList.add('text-slate-500');
@@ -996,6 +1106,106 @@ Driver: Antonio De Luca | Vehicle: FX 892 TR<br>
         toast.style.transition = 'opacity 0.4s ease';
         setTimeout(() => toast.remove(), 400);
       }, 3500);
+    }
+
+    // n8n Webhook & Comm Gateway JS Helpers
+    function applyWaTemplate(val) {
+      const bodyEl = document.getElementById('wa-body');
+      if (val === 'welcome') {
+        bodyEl.value = '✨ Donkey Destinations DMC: Welcome to your VIP experience! Your driver Antonio will meet you at arrivals with a name sign.';
+      } else if (val === 'delay') {
+        bodyEl.value = '✈️ Flight Status Update: Flight AZ 1284 delayed by 25 mins. Driver Antonio has adjusted pickup to 15:15 at NAP Arrivals.';
+      } else if (val === 'voucher') {
+        bodyEl.value = '🎟️ Voucher Issued: Service VOUCH-2026-98144 for Capri Yacht Charter is confirmed. Access your VIP portal link to view PDF.';
+      }
+    }
+
+    async function triggerN8nRfp() {
+      const consoleEl = document.getElementById('n8n-console');
+      consoleEl.innerText = 'Sending POST /api/webhooks/n8n/rfp...';
+      try {
+        const res = await fetch('/api/webhooks/n8n/rfp', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            rfp_text: 'VIP Group request for 4 guests visiting Mozambique & USA. Budget $25,000.',
+            client_name: 'Samantha Wright',
+            client_email: 's.wright@globaltravel.mock',
+            phone: '+14155559988',
+            destination: 'Mozambique & USA Coast-to-Coast'
+          })
+        });
+        const data = await res.json();
+        consoleEl.innerText = JSON.stringify(data, null, 2);
+        showToast(`n8n RFP Webhook Fired: ${data.inquiry_id}`, 'success');
+        loadLiveData();
+      } catch (e) {
+        consoleEl.innerText = 'Error: ' + e;
+        showToast('Webhook trigger failed', 'error');
+      }
+    }
+
+    async function triggerN8nSupplier(action) {
+      const consoleEl = document.getElementById('n8n-console');
+      consoleEl.innerText = `Sending POST /api/webhooks/n8n/supplier-response (${action})...`;
+      try {
+        const res = await fetch('/api/webhooks/n8n/supplier-response', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            item_id: 'INQ-2026-001-D1',
+            action: action,
+            phone: '+393339876543'
+          })
+        });
+        const data = await res.json();
+        consoleEl.innerText = JSON.stringify(data, null, 2);
+        showToast(`Supplier Webhook Fired: Status = ${data.status}`, 'success');
+        loadLiveData();
+      } catch (e) {
+        consoleEl.innerText = 'Error: ' + e;
+        showToast('Supplier webhook failed', 'error');
+      }
+    }
+
+    async function triggerN8nDispatch() {
+      const consoleEl = document.getElementById('n8n-console');
+      consoleEl.innerText = 'Sending POST /api/webhooks/n8n/dispatch...';
+      try {
+        const res = await fetch('/api/webhooks/n8n/dispatch', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            driver_phone: '+39333111222'
+          })
+        });
+        const data = await res.json();
+        consoleEl.innerText = JSON.stringify(data, null, 2);
+        showToast('Daily Manifest Broadcast via WhatsApp!', 'success');
+      } catch (e) {
+        consoleEl.innerText = 'Error: ' + e;
+        showToast('Manifest trigger failed', 'error');
+      }
+    }
+
+    async function sendDirectWhatsApp() {
+      const consoleEl = document.getElementById('n8n-console');
+      const phone = document.getElementById('wa-phone').value;
+      const message = document.getElementById('wa-body').value;
+      consoleEl.innerText = `Sending WhatsApp to ${phone}...`;
+      try {
+        const res = await fetch('/api/comm/send-whatsapp', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ phone, message })
+        });
+        const data = await res.json();
+        consoleEl.innerText = JSON.stringify(data, null, 2);
+        showToast('WhatsApp Gateway Dispatch Sent!', 'success');
+      } catch (e) {
+        consoleEl.innerText = 'Error: ' + e;
+        showToast('WhatsApp dispatch failed', 'error');
+      }
     }
 
     // Initialize live data on page load
