@@ -8,27 +8,81 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
     :root {
-      --blue-midnight: #030c1d; --blue-deep: #071733; --blue-royal: #0d2857;
-      --blue-ocean: #1d4ed8; --blue-azure: #0284c7; --blue-cyan: #00d2ff;
-      --blue-sky: #38bdf8; --blue-ice: #e0f2fe; --blue-mist: #f0f7ff;
-      --white: #ffffff; --text-dark: #0f172a; --text-muted: #475569;
+      --blue-midnight: #030c1d;
+      --blue-deep: #071733;
+      --blue-royal: #0d2857;
+      --blue-ocean: #1d4ed8;
+      --blue-azure: #0284c7;
+      --blue-cyan: #00d2ff;
+      --blue-sky: #38bdf8;
+      --blue-ice: #e0f2fe;
+      --blue-mist: #f0f7ff;
+      --white: #ffffff;
+      --text-dark: #0f172a;
+      --text-muted: #475569;
       --border-blue: rgba(0, 210, 255, 0.2);
     }
+
     html { scroll-behavior: smooth; }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-dark); background: var(--white); overflow-x: hidden; line-height: 1.65; }    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 80px; background: rgba(3, 12, 29, 0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 210, 255, 0.15); transition: all 0.3s ease; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text-dark);
+      background: var(--white);
+      overflow-x: hidden;
+      line-height: 1.65;
+    }
+
+    /* --- SLEEK NAVIGATION --- */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 80px;
+      background: rgba(3, 12, 29, 0.90);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 210, 255, 0.18);
+      transition: all 0.3s ease;
+    }
+
     .logo { display: flex; flex-direction: column; text-decoration: none; }
     .logo-main { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 800; color: var(--white); letter-spacing: -0.4px; }
     .logo-sub { font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--blue-cyan); margin-top: 2px; }
+
     .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
     .nav-links a { color: rgba(255, 255, 255, 0.85); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: all 0.25s ease; }
     .nav-links a:hover { color: var(--blue-cyan); transform: translateY(-1px); }
-    .nav-cta { background: linear-gradient(135deg, var(--blue-ocean), var(--blue-cyan)); color: var(--white) !important; padding: 0.7rem 1.6rem; border-radius: 50px; font-weight: 700 !important; box-shadow: 0 4px 20px rgba(0, 210, 255, 0.3); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important; }
-    .nav-cta:hover { transform: translateY(-2px) scale(1.03) !important; box-shadow: 0 8px 30px rgba(0, 210, 255, 0.5) !important; }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--blue-ocean), var(--blue-cyan));
+      color: var(--white) !important;
+      padding: 0.7rem 1.6rem;
+      border-radius: 50px;
+      font-weight: 700 !important;
+      box-shadow: 0 4px 20px rgba(0, 210, 255, 0.35);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .nav-cta:hover { transform: translateY(-2px) scale(1.03) !important; box-shadow: 0 8px 30px rgba(0, 210, 255, 0.55) !important; }
+
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
     .hamburger span { width: 26px; height: 2px; background: var(--white); border-radius: 2px; }
 
-    .hero { min-height: 100vh; display: flex; align-items: center; position: relative; background: linear-gradient(135deg, var(--blue-midnight) 0%, var(--blue-deep) 45%, #06193d 100%); overflow: hidden; }
+    /* --- HERO --- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background: linear-gradient(135deg, var(--blue-midnight) 0%, var(--blue-deep) 45%, #06193d 100%);
+      overflow: hidden;
+    }
     .hero-glow-1 { position: absolute; top: -15%; right: -10%; width: 700px; height: 700px; background: radial-gradient(circle, rgba(0, 210, 255, 0.16) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
     .hero-glow-2 { position: absolute; bottom: -15%; left: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(29, 78, 216, 0.22) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
     .hero-grid-pattern { position: absolute; inset: 0; opacity: 0.04; background-image: linear-gradient(var(--white) 1px, transparent 1px), linear-gradient(90deg, var(--white) 1px, transparent 1px); background-size: 60px 60px; }
@@ -49,9 +103,13 @@
     .hero-destinations-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; }
     .hero-dest-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.25); border-radius: 20px; padding: 1.8rem 1.4rem; backdrop-filter: blur(14px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; align-items: flex-start; }
     .hero-dest-card:hover { background: rgba(0, 210, 255, 0.12); border-color: var(--blue-cyan); transform: translateY(-6px) scale(1.02); box-shadow: 0 15px 35px rgba(0, 210, 255, 0.2); }
-    .hero-dest-icon { font-size: 2.5rem; margin-bottom: 0.9rem; display: block; }
+    .hero-dest-icon { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.9rem; }
+    .hero-flag-img { width: 34px; height: 24px; border-radius: 4px; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
     .hero-dest-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
-    .hero-dest-desc { font-size: 0.8rem; color: rgba(224, 242, 254, 0.75); line-height: 1.5; }    section { padding: 120px 5%; }
+    .hero-dest-desc { font-size: 0.8rem; color: rgba(224, 242, 254, 0.75); line-height: 1.5; }
+
+    /* --- SECTION SHARED --- */
+    section { padding: 120px 5%; }
     .section-inner { max-width: 1280px; margin: 0 auto; }
     .section-tag { font-size: 0.78rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--blue-ocean); margin-bottom: 0.8rem; display: inline-block; }
     .section-heading { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 3.5vw, 3.2rem); font-weight: 800; color: var(--blue-midnight); line-height: 1.18; margin-bottom: 1.2rem; }
@@ -59,6 +117,7 @@
     .header-center { text-align: center; margin-bottom: 4.5rem; }
     .header-center .section-subtext { margin: 0 auto; }
 
+    /* --- ABOUT SECTION --- */
     .about-section { background: var(--blue-mist); position: relative; }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
     .about-list { display: flex; flex-direction: column; gap: 1.8rem; margin-top: 2.5rem; }
@@ -71,22 +130,162 @@
     .visual-subtitle { font-size: 0.88rem; color: var(--blue-cyan); margin-bottom: 2.5rem; }
     .metric-row { display: flex; justify-content: space-between; align-items: center; padding: 1.05rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
     .metric-name { font-size: 0.91rem; color: rgba(255, 255, 255, 0.8); }
-    .metric-val { font-weight: 800; font-size: 1rem; color: var(--blue-cyan); }
-
+    .metric-val { font-weight: 800; font-size: 1rem; color: var(--blue-cyan); }    /* --- DESTINATIONS SLIDESHOW CARDS --- */
     .destinations-section { background: var(--white); }
     .destinations-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.8rem; }
-    .dest-card-full { background: var(--blue-midnight); border-radius: 20px; position: relative; overflow: hidden; min-height: 400px; display: flex; flex-direction: column; justify-content: flex-end; padding: 2.2rem 1.6rem; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid rgba(0, 210, 255, 0.15); }
-    .dest-card-full:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 45px rgba(3, 12, 29, 0.3); border-color: var(--blue-cyan); }
-    .dest-bg-symbol { position: absolute; top: 10px; right: 10px; font-size: 6.5rem; opacity: 0.10; pointer-events: none; }
-    .dest-gradient-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(3, 12, 29, 0.99) 0%, rgba(7, 23, 51, 0.65) 60%, rgba(7, 23, 51, 0.15) 100%); }
-    .dest-details { position: relative; z-index: 2; }
-    .dest-flag-name { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.6rem; }
-    .dest-flag { font-size: 1.6rem; }
-    .dest-h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 800; color: var(--white); }
-    .dest-text { font-size: 0.85rem; color: rgba(224, 242, 254, 0.8); line-height: 1.6; margin-bottom: 1.4rem; }
-    .dest-pill-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .dest-pill { background: rgba(0, 210, 255, 0.15); border: 1px solid rgba(0, 210, 255, 0.35); color: var(--blue-cyan); padding: 0.3rem 0.75rem; border-radius: 6px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    
+    .dest-card-full {
+      background: var(--blue-midnight);
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+      min-height: 440px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2.2rem 1.6rem;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid rgba(0, 210, 255, 0.2);
+    }
+    .dest-card-full:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 45px rgba(3, 12, 29, 0.35);
+      border-color: var(--blue-cyan);
+    }
 
+    /* SLIDESHOW STYLES */
+    .dest-slideshow {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .dest-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out, transform 4s ease-out;
+      transform: scale(1);
+    }
+    .dest-slide.active {
+      opacity: 1;
+      transform: scale(1.06);
+    }
+
+    .dest-gradient-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(to top, rgba(3, 12, 29, 0.98) 0%, rgba(7, 23, 51, 0.70) 50%, rgba(7, 23, 51, 0.25) 100%);
+    }
+
+    /* SLIDER CONTROLS */
+    .slider-nav {
+      position: absolute;
+      top: 18px; right: 18px;
+      z-index: 10;
+      display: flex;
+      gap: 6px;
+    }
+    .slider-btn {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(3, 12, 29, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: var(--white);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.25s ease;
+    }
+    .slider-btn:hover {
+      background: var(--blue-cyan);
+      color: var(--blue-midnight);
+      border-color: var(--blue-cyan);
+      transform: scale(1.1);
+    }
+
+    .slider-dots {
+      position: absolute;
+      top: 24px; left: 20px;
+      z-index: 10;
+      display: flex;
+      gap: 6px;
+    }
+    .slider-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .slider-dot.active {
+      background: var(--blue-cyan);
+      width: 22px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px var(--blue-cyan);
+    }
+
+    .dest-details {
+      position: relative;
+      z-index: 2;
+    }
+
+    .dest-flag-name {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .flag-badge {
+      width: 36px;
+      height: 25px;
+      border-radius: 4px;
+      object-fit: cover;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.3);
+      flex-shrink: 0;
+    }
+
+    .dest-h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .dest-text {
+      font-size: 0.86rem;
+      color: rgba(224, 242, 254, 0.85);
+      line-height: 1.6;
+      margin-bottom: 1.4rem;
+    }
+
+    .dest-pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .dest-pill {
+      background: rgba(0, 210, 255, 0.15);
+      border: 1px solid rgba(0, 210, 255, 0.35);
+      color: var(--blue-cyan);
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* --- SERVICES SECTION --- */
     .services-section { background: var(--blue-mist); }
     .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
     .service-card { background: var(--white); border-radius: 20px; padding: 2.5rem; border: 1px solid var(--border-blue); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; }
@@ -97,6 +296,7 @@
     .service-link { font-size: 0.88rem; font-weight: 700; color: var(--blue-ocean); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s ease; }
     .service-link:hover { color: var(--blue-cyan); gap: 0.8rem; }
 
+    /* --- WHY US --- */
     .why-section { background: linear-gradient(135deg, var(--blue-midnight) 0%, var(--blue-deep) 50%, #06193d 100%); color: var(--white); }
     .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.2rem; margin-top: 4rem; }
     .why-card { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(0, 210, 255, 0.2); border-radius: 20px; padding: 2.5rem 1.6rem; text-align: center; backdrop-filter: blur(8px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -105,6 +305,7 @@
     .why-title { font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
     .why-text { font-size: 0.85rem; color: rgba(224, 242, 254, 0.65); line-height: 1.6; }
 
+    /* --- TESTIMONIALS --- */
     .testimonials-section { background: var(--white); }
     .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
     .testimonial-card { background: var(--blue-mist); border-radius: 20px; padding: 2.5rem; border: 1px solid var(--border-blue); border-left: 5px solid var(--blue-ocean); display: flex; flex-direction: column; justify-content: space-between; }
@@ -115,6 +316,7 @@
     .client-name { font-size: 0.95rem; font-weight: 700; color: var(--blue-midnight); }
     .client-role { font-size: 0.78rem; color: var(--text-muted); }
 
+    /* --- CONTACT FORM --- */
     .contact-section { background: var(--blue-mist); }
     .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; align-items: start; }
     .contact-info-list { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
@@ -211,22 +413,31 @@
 
       <div class="hero-destinations-cards">
         <div class="hero-dest-card">
-          <span class="hero-dest-icon">🇲🇿</span>
+          <div class="hero-dest-icon">
+            <img src="https://flagcdn.com/w80/mz.png" class="hero-flag-img" alt="Mozambique Flag"/>
+          </div>
           <div class="hero-dest-title">Mozambique</div>
           <div class="hero-dest-desc">Indian Ocean coastlines, private islands & marine safaris.</div>
         </div>
         <div class="hero-dest-card">
-          <span class="hero-dest-icon">🏝️</span>
+          <div class="hero-dest-icon">
+            <img src="https://flagcdn.com/w80/bs.png" class="hero-flag-img" alt="Bahamas Flag"/>
+            <img src="https://flagcdn.com/w80/bb.png" class="hero-flag-img" alt="Barbados Flag"/>
+          </div>
           <div class="hero-dest-title">Caribbean</div>
           <div class="hero-dest-desc">Luxury villa estates, yacht charters & island escapes.</div>
         </div>
         <div class="hero-dest-card">
-          <span class="hero-dest-icon">🇳🇱</span>
+          <div class="hero-dest-icon">
+            <img src="https://flagcdn.com/w80/nl.png" class="hero-flag-img" alt="Holland Flag"/>
+          </div>
           <div class="hero-dest-title">Holland</div>
           <div class="hero-dest-desc">Cultural tours, tulip season MICE & Amsterdam venues.</div>
         </div>
         <div class="hero-dest-card">
-          <span class="hero-dest-icon">🇺🇸</span>
+          <div class="hero-dest-icon">
+            <img src="https://flagcdn.com/w80/us.png" class="hero-flag-img" alt="USA Flag"/>
+          </div>
           <div class="hero-dest-title">USA</div>
           <div class="hero-dest-desc">NYC skylines, Miami beach retreats & Las Vegas summits.</div>
         </div>
@@ -284,7 +495,7 @@
     </div>
   </section>
 
-  <!-- DESTINATIONS -->
+  <!-- DESTINATIONS SHOWCASE WITH PHOTO SLIDESHOW & FLAGS -->
   <section class="destinations-section" id="destinations">
     <div class="section-inner">
       <div class="header-center">
@@ -294,43 +505,140 @@
       </div>
 
       <div class="destinations-grid">
-        <div class="dest-card-full">
-          <span class="dest-bg-symbol">🌊</span>
+        <!-- MOZAMBIQUE CARD -->
+        <div class="dest-card-full" id="dest-card-0">
+          <div class="dest-slideshow">
+            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80" class="dest-slide active" alt="Mozambique Ocean Resort"/>
+            <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800&q=80" class="dest-slide" alt="Mozambique Marine Safari"/>
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="dest-slide" alt="Benguerra Island Beach"/>
+          </div>
           <div class="dest-gradient-overlay"></div>
+          
+          <div class="slider-dots">
+            <span class="slider-dot active" onclick="goToSlide(0, 0)"></span>
+            <span class="slider-dot" onclick="goToSlide(0, 1)"></span>
+            <span class="slider-dot" onclick="goToSlide(0, 2)"></span>
+          </div>
+
+          <div class="slider-nav">
+            <button class="slider-btn" onclick="prevSlide(0)" title="Previous Image">‹</button>
+            <button class="slider-btn" onclick="nextSlide(0)" title="Next Image">›</button>
+          </div>
+
           <div class="dest-details">
-            <div class="dest-flag-name"><span class="dest-flag">🇲🇿</span><h3 class="dest-h3">Mozambique</h3></div>
+            <div class="dest-flag-name">
+              <img src="https://flagcdn.com/w80/mz.png" class="flag-badge" alt="Mozambique Flag" title="Mozambique"/>
+              <h3 class="dest-h3">Mozambique</h3>
+            </div>
             <p class="dest-text">Pristine Indian Ocean coastlines, Benguerra island resorts, and tailor-made wilderness safaris.</p>
-            <div class="dest-pill-group"><span class="dest-pill">Island Resorts</span><span class="dest-pill">Marine Safaris</span><span class="dest-pill">VIP Leisure</span></div>
+            <div class="dest-pill-group">
+              <span class="dest-pill">Island Resorts</span>
+              <span class="dest-pill">Marine Safaris</span>
+              <span class="dest-pill">VIP Leisure</span>
+            </div>
           </div>
         </div>
 
-        <div class="dest-card-full">
-          <span class="dest-bg-symbol">🏝️</span>
+        <!-- CARIBBEAN CARD -->
+        <div class="dest-card-full" id="dest-card-1">
+          <div class="dest-slideshow">
+            <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=800&q=80" class="dest-slide active" alt="Caribbean Turquoise Waters"/>
+            <img src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=800&q=80" class="dest-slide" alt="Caribbean Yacht Charter"/>
+            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" class="dest-slide" alt="Caribbean Villa Estate"/>
+          </div>
           <div class="dest-gradient-overlay"></div>
+          
+          <div class="slider-dots">
+            <span class="slider-dot active" onclick="goToSlide(1, 0)"></span>
+            <span class="slider-dot" onclick="goToSlide(1, 1)"></span>
+            <span class="slider-dot" onclick="goToSlide(1, 2)"></span>
+          </div>
+
+          <div class="slider-nav">
+            <button class="slider-btn" onclick="prevSlide(1)" title="Previous Image">‹</button>
+            <button class="slider-btn" onclick="nextSlide(1)" title="Next Image">›</button>
+          </div>
+
           <div class="dest-details">
-            <div class="dest-flag-name"><span class="dest-flag">🏝️</span><h3 class="dest-h3">Caribbean</h3></div>
+            <div class="dest-flag-name">
+              <img src="https://flagcdn.com/w80/bs.png" class="flag-badge" alt="Bahamas Flag" title="Bahamas / Caribbean"/>
+              <img src="https://flagcdn.com/w80/bb.png" class="flag-badge" alt="Barbados Flag" title="Barbados / Caribbean"/>
+              <h3 class="dest-h3">Caribbean</h3>
+            </div>
             <p class="dest-text">Turquoise waters, private villa estates, megayacht charters, and vibrant Caribbean culture.</p>
-            <div class="dest-pill-group"><span class="dest-pill">Yacht Charters</span><span class="dest-pill">Private Villas</span><span class="dest-pill">Island Escapes</span></div>
+            <div class="dest-pill-group">
+              <span class="dest-pill">Yacht Charters</span>
+              <span class="dest-pill">Private Villas</span>
+              <span class="dest-pill">Island Escapes</span>
+            </div>
           </div>
         </div>
 
-        <div class="dest-card-full">
-          <span class="dest-bg-symbol">🌷</span>
+        <!-- HOLLAND CARD -->
+        <div class="dest-card-full" id="dest-card-2">
+          <div class="dest-slideshow">
+            <img src="https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?auto=format&fit=crop&w=800&q=80" class="dest-slide active" alt="Amsterdam Canals"/>
+            <img src="https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80" class="dest-slide" alt="Holland Tulip Fields"/>
+            <img src="https://images.unsplash.com/photo-1534351590666-13e3e96b5017?auto=format&fit=crop&w=800&q=80" class="dest-slide" alt="Holland Windmills"/>
+          </div>
           <div class="dest-gradient-overlay"></div>
+          
+          <div class="slider-dots">
+            <span class="slider-dot active" onclick="goToSlide(2, 0)"></span>
+            <span class="slider-dot" onclick="goToSlide(2, 1)"></span>
+            <span class="slider-dot" onclick="goToSlide(2, 2)"></span>
+          </div>
+
+          <div class="slider-nav">
+            <button class="slider-btn" onclick="prevSlide(2)" title="Previous Image">‹</button>
+            <button class="slider-btn" onclick="nextSlide(2)" title="Next Image">›</button>
+          </div>
+
           <div class="dest-details">
-            <div class="dest-flag-name"><span class="dest-flag">🇳🇱</span><h3 class="dest-h3">Holland</h3></div>
+            <div class="dest-flag-name">
+              <img src="https://flagcdn.com/w80/nl.png" class="flag-badge" alt="Netherlands Flag" title="Netherlands / Holland"/>
+              <h3 class="dest-h3">Holland</h3>
+            </div>
             <p class="dest-text">Amsterdam canal cruises, private museum viewings, tulip season MICE, and top corporate venues.</p>
-            <div class="dest-pill-group"><span class="dest-pill">Corporate MICE</span><span class="dest-pill">Canal Cruises</span><span class="dest-pill">Culture</span></div>
+            <div class="dest-pill-group">
+              <span class="dest-pill">Corporate MICE</span>
+              <span class="dest-pill">Canal Cruises</span>
+              <span class="dest-pill">Culture</span>
+            </div>
           </div>
         </div>
 
-        <div class="dest-card-full">
-          <span class="dest-bg-symbol">🗽</span>
+        <!-- USA CARD -->
+        <div class="dest-card-full" id="dest-card-3">
+          <div class="dest-slideshow">
+            <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=800&q=80" class="dest-slide active" alt="NYC Skyline"/>
+            <img src="https://images.unsplash.com/photo-1506968605470-388d01198533?auto=format&fit=crop&w=800&q=80" class="dest-slide" alt="Miami Beach Palms"/>
+            <img src="https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=800&q=80" class="dest-slide" alt="USA Grand Canyon"/>
+          </div>
           <div class="dest-gradient-overlay"></div>
+          
+          <div class="slider-dots">
+            <span class="slider-dot active" onclick="goToSlide(3, 0)"></span>
+            <span class="slider-dot" onclick="goToSlide(3, 1)"></span>
+            <span class="slider-dot" onclick="goToSlide(3, 2)"></span>
+          </div>
+
+          <div class="slider-nav">
+            <button class="slider-btn" onclick="prevSlide(3)" title="Previous Image">‹</button>
+            <button class="slider-btn" onclick="nextSlide(3)" title="Next Image">›</button>
+          </div>
+
           <div class="dest-details">
-            <div class="dest-flag-name"><span class="dest-flag">🇺🇸</span><h3 class="dest-h3">USA</h3></div>
+            <div class="dest-flag-name">
+              <img src="https://flagcdn.com/w80/us.png" class="flag-badge" alt="USA Flag" title="United States of America"/>
+              <h3 class="dest-h3">USA</h3>
+            </div>
             <p class="dest-text">From Manhattan galas and Miami beach clubs to Las Vegas convention summits and national parks.</p>
-            <div class="dest-pill-group"><span class="dest-pill">Incentive Trips</span><span class="dest-pill">City Galas</span><span class="dest-pill">Conferences</span></div>
+            <div class="dest-pill-group">
+              <span class="dest-pill">Incentive Trips</span>
+              <span class="dest-pill">City Galas</span>
+              <span class="dest-pill">Conferences</span>
+            </div>
           </div>
         </div>
       </div>
@@ -531,12 +839,68 @@
 
       <div class="footer-bottom">
         <span>© 2026 Donkey Destinations DMC. All rights reserved.</span>
-        <span>✦ Modern Sleek Blue Ocean & Cyan Design</span>
+        <span>✦ Interactive Destination Photo Slideshows & Flags</span>
       </div>
     </div>
   </footer>
 
   <script>
+    // SLIDESHOW LOGIC
+    const cardSlideIndices = [0, 0, 0, 0];
+
+    function updateSlideshow(cardIndex) {
+      const card = document.getElementById('dest-card-' + cardIndex);
+      if (!card) return;
+      const slides = card.querySelectorAll('.dest-slide');
+      const dots = card.querySelectorAll('.slider-dot');
+      const currentIndex = cardSlideIndices[cardIndex];
+
+      slides.forEach((slide, i) => {
+        if (i === currentIndex) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      dots.forEach((dot, i) => {
+        if (i === currentIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+
+    function nextSlide(cardIndex) {
+      const card = document.getElementById('dest-card-' + cardIndex);
+      const slides = card.querySelectorAll('.dest-slide');
+      cardSlideIndices[cardIndex] = (cardSlideIndices[cardIndex] + 1) % slides.length;
+      updateSlideshow(cardIndex);
+    }
+
+    function prevSlide(cardIndex) {
+      const card = document.getElementById('dest-card-' + cardIndex);
+      const slides = card.querySelectorAll('.dest-slide');
+      cardSlideIndices[cardIndex] = (cardSlideIndices[cardIndex] - 1 + slides.length) % slides.length;
+      updateSlideshow(cardIndex);
+    }
+
+    function goToSlide(cardIndex, slideIndex) {
+      cardSlideIndices[cardIndex] = slideIndex;
+      updateSlideshow(cardIndex);
+    }
+
+    // Auto cycle slideshows every 4.5 seconds with staggered start
+    setInterval(() => {
+      [0, 1, 2, 3].forEach((idx) => {
+        setTimeout(() => {
+          nextSlide(idx);
+        }, idx * 600);
+      });
+    }, 5500);
+
+    // FORM SUBMIT
     function handleFormSubmit(e) {
       e.preventDefault();
       document.getElementById('form-container').style.display = 'none';
