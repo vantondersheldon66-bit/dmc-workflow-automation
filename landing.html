@@ -800,6 +800,20 @@
   </section>
 
   <!-- ===== ITINERARY BUILDER SECTION ===== -->
+  <style>
+    /* Mobile Responsive Fixes for Itinerary Builder */
+    @media (max-width: 640px) {
+      #itinerary-builder { padding: 60px 5% !important; }
+      #ib-card-progress { padding: 15px 15px !important; }
+      #ib-card-content { padding: 20px !important; }
+      #ib-step3-grid { grid-template-columns: 1fr !important; }
+      #ib-budget-grid { grid-template-columns: 1fr 1fr !important; gap: 16px !important; }
+      #ib-budget-box { padding: 24px !important; }
+      #ib-total { font-size: 2.2rem !important; }
+      .ib-btn-group { flex-direction: column !important; }
+      .ib-btn-group button { width: 100% !important; flex: none !important; }
+    }
+  </style>
   <section id="itinerary-builder" style="background:var(--blue-mist); padding: 100px 5%;">
     <div style="max-width:1100px; margin:0 auto;">
       
@@ -814,7 +828,7 @@
       <div style="background:#fff; border-radius:22px; box-shadow:0 20px 60px rgba(15,30,70,0.1); overflow:hidden; border:1px solid rgba(29,78,216,0.1);">
         
         <!-- Progress Steps -->
-        <div style="background:linear-gradient(135deg,#0d2857,#1d4ed8); padding:22px 40px; display:flex; gap:0; overflow-x:auto;">
+        <div id="ib-card-progress" style="background:linear-gradient(135deg,#0d2857,#1d4ed8); padding:22px 40px; display:flex; gap:0; overflow-x:auto;">
           <div class="ib-step active" id="step-tab-1" onclick="ibStep(1)" style="flex:1; text-align:center; padding:10px 8px; border-radius:10px; background:rgba(255,255,255,0.15); cursor:pointer; min-width:140px; margin-right:8px;">
             <div style="font-size:1.3rem;">🌍</div>
             <div style="font-size:0.75rem; font-weight:700; color:#fff; margin-top:4px;">1. Destinations</div>
@@ -833,7 +847,7 @@
           </div>
         </div>
 
-        <div style="padding:40px;">
+        <div id="ib-card-content" style="padding:40px;">
 
           <!-- STEP 1: DESTINATIONS -->
           <div id="ib-panel-1">
@@ -937,7 +951,7 @@
           <div id="ib-panel-3" style="display:none;">
             <h3 style="font-size:1.2rem; font-weight:800; color:var(--blue-midnight); margin-bottom:8px;">Group Size & Travel Dates</h3>
             <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:24px;">Larger groups may qualify for volume pricing. Enter your details to tailor the estimate.</p>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+            <div id="ib-step3-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
               <div>
                 <label style="display:block; font-weight:700; color:var(--blue-midnight); margin-bottom:8px; font-size:0.88rem;">Number of Guests (Pax)</label>
                 <input type="number" id="ib-pax" value="4" min="1" max="500" oninput="ibCalc()" style="width:100%; padding:12px 16px; border:2px solid #e2e8f0; border-radius:10px; font-size:1rem; font-weight:700; color:var(--blue-midnight); outline:none;">
@@ -974,8 +988,8 @@
             <h3 style="font-size:1.2rem; font-weight:800; color:var(--blue-midnight); margin-bottom:6px;">Instant Budget Estimate</h3>
             <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:28px;">Based on your selections — this is an indicative estimate. Final pricing is confirmed in your custom proposal.</p>
             
-            <div style="background:linear-gradient(135deg,#0d2857,#1d4ed8); color:#fff; border-radius:18px; padding:36px; margin-bottom:24px;">
-              <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:24px; margin-bottom:28px;">
+            <div id="ib-budget-box" style="background:linear-gradient(135deg,#0d2857,#1d4ed8); color:#fff; border-radius:18px; padding:36px; margin-bottom:24px;">
+              <div id="ib-budget-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:24px; margin-bottom:28px;">
                 <div style="text-align:center;">
                   <div style="font-size:0.72rem; color:rgba(255,255,255,0.6); text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-bottom:8px;">Destinations</div>
                   <div style="font-size:1.4rem; font-weight:800;" id="ib-summary-dest">—</div>
@@ -1003,7 +1017,7 @@
               </div>
             </div>
 
-            <div style="display:flex; gap:16px; flex-wrap:wrap;">
+            <div class="ib-btn-group" style="display:flex; gap:16px; flex-wrap:wrap;">
               <button onclick="ibStep(3)" style="background:#f1f5f9; color:var(--blue-midnight); border:none; padding:13px 26px; border-radius:50px; font-weight:600; cursor:pointer; flex:1; min-width:140px;">← Adjust</button>
               <button onclick="ibSendProposal()" style="background:linear-gradient(135deg,#059669,#34d399); color:#fff; border:none; padding:13px 30px; border-radius:50px; font-weight:700; font-size:0.95rem; cursor:pointer; box-shadow:0 8px 24px rgba(5,150,105,0.3); flex:2; min-width:220px;">📩 Request Full Proposal Package</button>
             </div>
