@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Donkey Destinations | Luxury & Corporate DMC</title>
   <meta name="description" content="Donkey Destinations — Premium Destination Management Company in Mozambique, Caribbean, Holland & USA."/>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     
@@ -19,6 +19,7 @@
       --blue-sky: #38bdf8;
       --blue-ice: #e0f2fe;
       --blue-mist: #f0f7ff;
+      --gold-accent: #C5A059;
       --white: #ffffff;
       --text-dark: #0f172a;
       --text-muted: #475569;
@@ -35,7 +36,7 @@
       line-height: 1.65;
     }
 
-    /* --- SLEEK NAVIGATION --- */
+    /* --- SLEEK UNIFIED NAVIGATION --- */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -43,31 +44,70 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 5%;
+      padding: 0 4%;
       height: 80px;
-      background: rgba(3, 12, 29, 0.90);
+      background: rgba(3, 12, 29, 0.92);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(0, 210, 255, 0.18);
       transition: all 0.3s ease;
     }
 
+    .brand-group { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; }
+    .logo-badge {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, #C5A059, #D4B572);
+      color: #030c1d;
+      font-weight: 800; font-size: 0.85rem;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 10px rgba(197, 160, 89, 0.4);
+    }
     .logo { display: flex; flex-direction: column; text-decoration: none; }
-    .logo-main { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 800; color: var(--white); letter-spacing: -0.4px; }
-    .logo-sub { font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--blue-cyan); margin-top: 2px; }
+    .logo-main { font-family: 'Playfair Display', serif; font-size: 1.45rem; font-weight: 800; color: var(--white); letter-spacing: -0.4px; }
+    .logo-sub { font-size: 0.62rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue-cyan); margin-top: 1px; }
 
-    .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
-    .nav-links a { color: rgba(255, 255, 255, 0.85); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: all 0.25s ease; }
-    .nav-links a:hover { color: var(--blue-cyan); transform: translateY(-1px); }
+    .nav-center { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-center a { color: rgba(255, 255, 255, 0.85); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: all 0.25s ease; }
+    .nav-center a:hover { color: var(--blue-cyan); }
+
+    /* Portal Switcher Pill */
+    .portal-switcher {
+      display: flex; align-items: center;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 3px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .portal-switcher a {
+      padding: 6px 12px;
+      border-radius: 8px;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .portal-switcher a:hover { color: #fff; background: rgba(255, 255, 255, 0.08); }
+    .portal-switcher a.active {
+      background: linear-gradient(135deg, #C5A059, #D4B572);
+      color: #030c1d;
+      box-shadow: 0 2px 8px rgba(197, 160, 89, 0.3);
+    }
 
     .nav-cta {
       background: linear-gradient(135deg, var(--blue-ocean), var(--blue-cyan));
       color: var(--white) !important;
-      padding: 0.7rem 1.6rem;
+      padding: 0.6rem 1.4rem;
       border-radius: 50px;
       font-weight: 700 !important;
+      font-size: 0.85rem !important;
       box-shadow: 0 4px 20px rgba(0, 210, 255, 0.35);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      text-decoration: none;
     }
     .nav-cta:hover { transform: translateY(-2px) scale(1.03) !important; box-shadow: 0 8px 30px rgba(0, 210, 255, 0.55) !important; }
 
@@ -376,17 +416,30 @@
 </head>
 <body>  <!-- NAV -->
   <nav>
-    <a href="#home" class="logo">
-      <span class="logo-main">Donkey Destinations</span>
-      <span class="logo-sub">Destination Management Company</span>
+    <a href="#home" class="brand-group">
+      <div class="logo-badge">DD</div>
+      <div class="logo">
+        <span class="logo-main">Donkey Destinations</span>
+        <span class="logo-sub">Destination Management Company</span>
+      </div>
     </a>
-    <ul class="nav-links">
+
+    <ul class="nav-center nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#destinations">Destinations</a></li>
       <li><a href="#services">Services</a></li>
-      <li><a href="#testimonials">Clients</a></li>
-      <li><a href="#contact" class="nav-cta">Request Proposal</a></li>
+      <li><a href="#itinerary-builder">Itinerary Builder</a></li>
     </ul>
+
+    <div style="display:flex; align-items:center; gap:1.2rem;">
+      <div class="portal-switcher">
+        <a href="/" class="active">Public Site</a>
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/itinerary_portal.html">Guest Portal</a>
+      </div>
+      <a href="#contact" class="nav-cta">Request Proposal</a>
+    </div>
+
     <div class="hamburger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
     </div>

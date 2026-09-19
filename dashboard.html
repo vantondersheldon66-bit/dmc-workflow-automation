@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DMC Operations Command Dashboard</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap');
-    body { font-family: 'Inter', sans-serif; }
-    .font-serif-title { font-family: 'Cinzel', Georgia, serif; }
-    .tab-active { border-bottom: 3px solid #C5A059; color: #1A365D; font-weight: 600; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-serif-title { font-family: 'Playfair Display', serif; }
+    .tab-active { border-bottom: 3px solid #C5A059; color: #0d2857; font-weight: 700; }
     .toast-slide-in { animation: slideIn 0.3s ease-out forwards; }
     @keyframes slideIn { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
   </style>
@@ -17,31 +17,31 @@
 <body class="bg-slate-100 text-slate-800 antialiased min-h-screen">
 
   <!-- Top Navigation Bar -->
-  <header class="bg-[#1A365D] text-white sticky top-0 z-40 shadow-md">
-    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+  <header class="bg-[#030c1d] text-white sticky top-0 z-40 shadow-lg border-b border-[#00d2ff]/20">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <div class="w-9 h-9 bg-[#C5A059] rounded-lg flex items-center justify-center font-bold text-[#1A365D] shadow">
+        <div class="w-9 h-9 bg-gradient-to-br from-[#C5A059] to-[#D4B572] rounded-lg flex items-center justify-center font-extrabold text-[#030c1d] shadow-md text-sm">
           DD
         </div>
         <div>
-          <h1 class="font-serif-title text-lg font-bold tracking-wide">Donkey Destinations DMC</h1>
-          <p class="text-xs text-slate-300">Operations Command & Automation Engine</p>
+          <h1 class="font-serif-title text-lg font-bold tracking-wide text-white">Donkey Destinations DMC</h1>
+          <p class="text-[10px] font-bold uppercase tracking-widest text-[#00d2ff]">Operations Command & Automation Engine</p>
         </div>
       </div>
       
       <div class="flex items-center space-x-4">
         <!-- Portal Nav Switcher -->
-        <nav class="hidden md:flex items-center bg-black/20 backdrop-blur-md border border-white/10 rounded-xl p-1 shadow-inner text-[11px] uppercase tracking-wider font-bold">
+        <nav class="hidden md:flex items-center bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-1 shadow-inner text-[11px] uppercase tracking-wider font-bold">
           <a href="/landing.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200">Public Site</a>
-          <a href="/dashboard.html" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#C5A059] to-[#D4B572] text-[#1A365D] shadow-sm transition-all duration-200">Command Dashboard</a>
+          <a href="/dashboard.html" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#C5A059] to-[#D4B572] text-[#030c1d] shadow-sm transition-all duration-200">Command Dashboard</a>
           <a href="/itinerary_portal.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200">Guest Portal</a>
         </nav>
 
-        <div class="flex items-center space-x-2 bg-slate-800/60 px-3 py-1.5 rounded-full border border-slate-700 text-xs text-slate-300">
+        <div class="flex items-center space-x-2 bg-slate-900/80 px-3 py-1.5 rounded-full border border-slate-700/80 text-xs text-slate-300">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>Engine: Live</span>
+          <span class="font-semibold text-emerald-400">Engine: Live</span>
         </div>
-        <div class="text-xs text-slate-300 bg-slate-800/60 px-3 py-1.5 rounded-lg border border-slate-700">
+        <div class="text-xs text-slate-300 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700/80">
           Local Time: <span id="clock" class="font-mono font-medium text-white"></span>
         </div>
       </div>
